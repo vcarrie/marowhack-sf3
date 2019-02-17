@@ -1,0 +1,3 @@
+definima_admin_homepage:
+    resource: "@DefinimaAdminBundle/Resources/config/routing/admin.yml"
+    prefix:     /admin

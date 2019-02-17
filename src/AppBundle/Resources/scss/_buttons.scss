@@ -1,0 +1,52 @@
+/*  -------------------------------------------------------
+    ------------------->>> BUTTONS <<<----------------------
+    -------------------------------------------------------  */
+
+
+button:active,
+button:focus,
+button [type="button"]:focus,
+button [type="button"]:active,
+input[type="submit"]:focus,
+input[type="submit"]:active,
+input:active,
+input:focus{
+  box-shadow: none !important;
+  outline: none !important;}
+
+
+.btn-ctn {
+  clear: both;
+  text-align: center;
+}
+
+.btn:not(.btn-outline-primary) {
+  border: 0;
+  border-radius: 0;
+  font-weight: 600;
+  padding: 10px 30px;
+  text-transform: uppercase;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  transition: all .35s ease-in-out;
+  &:focus{
+    outline:none !important;
+    box-shadow: none !important;
+  }
+  &:active {
+    outline:none !important;
+    box-shadow: none !important;
+  }
+  &:visited {
+    color:white;
+  }
+}
+
+.btn-small {
+  border-radius: 2px;
+  font-size: 14px;
+  padding: 4px 10px;
+  text-transform: none;
+}

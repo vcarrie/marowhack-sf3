@@ -1,0 +1,11 @@
+@import 'compass';
+@import 'base';
+@import 'variables';
+@import 'fonts';
+@import 'buttons';
+
+.test-flex{
+  @include display-flex(flex);
+  @include justify-content(flex-end);
+  @include flex-direction(column);
+}

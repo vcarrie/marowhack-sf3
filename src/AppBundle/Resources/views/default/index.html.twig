@@ -1,0 +1,50 @@
+{% extends '@App/layout.html.twig' %}
+
+{% block body %}
+
+    <style>
+        .index p{
+            background: #0c5460;
+            color: #fff;
+        }
+
+        .index-fluid p{
+            background: #605211;
+            color: #fff;
+        }
+    </style>
+
+    <div id="wrapper">
+        <div class="container">
+            <h1><span>Welcome to</span> Symfony </h1>
+            <div class="row index test-flex">
+                <div class="col-3"><p>Col-3</p></div>
+                <div class="col-3"><p>Col-3</p></div>
+                <div class="col-3"><p>Col-3</p></div>
+                <div class="col-3"><p>Col-3</p></div>
+                <div class="col-3"><p>Col-3</p></div>
+                <div class="col-3"><p>Col-3</p></div>
+                <div class="col-3"><p>Col-3</p></div>
+                <div class="col-3"><p>Col-3</p></div>
+            </div>
+
+            <div id="status">
+                <p>
+                    Le socle est bien installé maintenant dépêche-toi de travailler!
+                </p>
+            </div>
+
+            <div class="row index-fluid">
+                <div class="col-3-fluid"><p>Col-3-fluid</p></div>
+                <div class="col-3-fluid"><p>Col-3-fluid</p></div>
+                <div class="col-3-fluid"><p>Col-3-fluid</p></div>
+                <div class="col-3-fluid"><p>Col-3-fluid</p></div>
+                <div class="col-3-fluid"><p>Col-3-fluid</p></div>
+                <div class="col-3-fluid"><p>Col-3-fluid</p></div>
+                <div class="col-3-fluid"><p>Col-3-fluid</p></div>
+                <div class="col-3-fluid"><p>Col-3-fluid</p></div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
