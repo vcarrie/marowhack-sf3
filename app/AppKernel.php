@@ -22,7 +22,7 @@ class AppKernel extends Kernel
             new FOS\UserBundle\FOSUserBundle(),
 
             new AppBundle\AppBundle(),
-            new Definima\AdminBundle\DefinimaAdminBundle()
+            new Definima\AdminBundle\DefinimaAdminBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

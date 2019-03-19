@@ -1,0 +1,6 @@
+{% extends 'AppBundle:Mail:layout.html.twig' %}
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block text %}
+    {{ 'resetting.email.message'|trans({'%username%': user.username, '%confirmationUrl%': confirmationUrl})|nl2br }}
+{% endblock %}

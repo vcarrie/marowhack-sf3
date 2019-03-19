@@ -3,7 +3,6 @@
 namespace Definima\AdminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
 use PUGX\MultiUserBundle\Validator\Constraints\UniqueEntity;
 use AppBundle\Entity\User;
 

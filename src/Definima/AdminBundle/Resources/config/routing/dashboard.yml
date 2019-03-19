@@ -1,0 +1,4 @@
+definima_admin_dashbord_index:
+    path:     /
+    defaults: { _controller: DefinimaAdminBundle:Dashboard:index }
+    methods:  GET

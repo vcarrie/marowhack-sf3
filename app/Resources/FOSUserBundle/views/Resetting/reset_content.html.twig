@@ -1,0 +1,18 @@
+{% trans_default_domain 'FOSUserBundle' %}
+{{ form_start(form, { 'action': path('fos_user_resetting_reset', {'token': token}), 'attr': { 'class': 'fos_user_resetting_reset' } }) }}
+
+	{% for repeatedField in form.plainPassword %}
+		<div class="form-group row {% if repeatedField.vars.errors|length %}has-error{%endif%}" >
+			{{ form_label(repeatedField, null, {'label_attr': {'class': 'col-sm-5 control-label'}}) }}
+			<div class="col-sm-7">
+
+		        {{ form_widget(repeatedField, {'attr': {'class': 'form-horizontal', 'style': 'height: 30px;width: 100%;line-height: initial;'}}) }}
+		        <div class="erreur">{{ form_errors(repeatedField) }}</div>
+
+		    </div>
+		</div>
+	{% endfor %}
+
+    <input type="submit" class="btn btn-warning" value="{{ 'resetting.reset.submit'|trans }}" />
+    <a class="btn btn-secondary " href="{{ path('fos_user_security_login') }}" style="display:inline-block;float:right;">Retour</a>
+{{ form_end(form) }}

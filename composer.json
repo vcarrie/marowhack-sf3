@@ -16,12 +16,12 @@
     "require": {
         "php": ">=5.5.9",
         "coresphere/console-bundle": "^0.5.0",
+        "definima/scssphp-compass": "dev-master",
         "doctrine/doctrine-bundle": "^1.6",
         "doctrine/orm": "^2.5",
         "friendsofsymfony/user-bundle": "~2.0",
         "incenteev/composer-parameter-handler": "^2.0",
-        "leafo/scssphp": "dev-master",
-        "leafo/scssphp-compass": "dev-master",
+        "leafo/scssphp": "^0.7.7",
         "pugx/multi-user-bundle": "^2.0",
         "sensio/distribution-bundle": "^5.0.19",
         "sensio/framework-extra-bundle": "^5.0.0",
@@ -38,6 +38,10 @@
         "sensio/generator-bundle": "^3.0",
         "symfony/phpunit-bridge": "^3.0"
     },
+    "repositories" : [{
+        "type" : "vcs",
+        "url" : "git@gitlab1.definima.net:definima/scssphp-compass.git"
+    }],
     "scripts": {
         "symfony-scripts": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",

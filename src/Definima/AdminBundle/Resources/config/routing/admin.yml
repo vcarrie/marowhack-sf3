@@ -1,4 +1,4 @@
-definima_admin_index:
+definima_admin_gestion_admin_index:
     path:     /
-    defaults: { _controller: DefinimaAdminBundle:Admin:index }
+    defaults: { _controller: "DefinimaAdminBundle:Admin:index" }
     methods:  GET

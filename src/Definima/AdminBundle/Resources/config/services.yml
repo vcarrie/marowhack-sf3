@@ -1,4 +1,6 @@
 services:
-#    definima_admin.example:
-#        class: Definima\AdminBundle\Example
-#        arguments: ["@service_id", "plain_value", "%parameter%"]
+  menu.twig_extension:
+    class: Definima\AdminBundle\Twig\MenuExtension
+    public: false
+    tags:
+      - { name: twig.extension }

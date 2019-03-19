@@ -1,0 +1,175 @@
+{% trans_default_domain 'FOSUserBundle' %}
+{% form_theme form 'DefinimaAdminBundle:Form:form_error.html.twig' %}
+
+
+
+{{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'id': 'definima_candidatbundle_candidat','class': 'fos_user_registration_register', 'data-ville':path('definima_app_ville_ajax')}}) }}
+<div class="row">
+    <div class="erreur">{{ form_errors(form) }}</div>
+
+    <div class="col-12">
+        <div class="form-group col-12 pl-0 mt-2 {% if form.email.vars.errors|length %}has-error{% endif %}">
+            {{ form_label(form.email, null, {'label_attr': {'class': 'control-label'}}) }}
+            <div class="col-12 pl-0 pr-0">
+                {{ form_widget(form.email, {'required': isrequired|default(form.email.vars.required), 'attr': {'class': 'col-12'}}) }}
+                <div class="erreur">{{ form_errors(form.email) }}</div>
+            </div>
+        </div>
+
+        <div class="form-group col-12 pl-0 pr-0 mt-2">
+            <div class="col-12 pl-0"><label class="control-label"> Mot de passe *</label></div>
+            <div class="col-12 pl-0" style="font-size: 12px;color:grey;font-style: italic">Minimum 8 caractères</div>
+            <div class="col-12 d-flex pl-0 pr-0 flex-column flex-lg-row justify-content-lg-between">
+                {% for repeatedField in form.plainPassword %}
+                    {#<div class="col-12">{{ form_label(repeatedField, null, {'label_attr': {'class': 'control-label'}}) }}</div>#}
+                    <div class="col-12 col-lg-6 pl-0 {% if form.plainPassword.vars.errors|length %}has-error{% endif %}">
+                        {{ form_widget(repeatedField, {'attr': {'class': 'col-12'}}) }}
+                        <div class="erreur">{{ form_errors(repeatedField) }}</div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="form-group col-12 pl-0 mt-2 {% if form.civilite.vars.errors|length %}has-error{% endif %}">
+            {{ form_label(form.civilite, null, {'label_attr': {'class': 'col-12 control-label'}}) }}
+            <div class="col-12 pl-0 pr-0">
+                {{ form_widget(form.civilite, {'required': isrequired|default(form.civilite.vars.required), 'attr': {'class': 'form-horizontal '}}) }}
+                <div class="erreur">{{ form_errors(form.civilite) }}</div>
+            </div>
+        </div>
+        <div class="col-12 d-flex pl-0 pr-0 flex-column flex-lg-row justify-content-lg-between">
+            <div class="form-group col-12 col-lg-6 pl-0 mt-2 {% if form.nom.vars.errors|length %}has-error{% endif %}">
+                {{ form_label(form.nom, null, {'label_attr': {'class': 'col-12 control-label'}}) }}
+                <div class="">
+                    {{ form_widget(form.nom, {'required': isrequired|default(form.nom.vars.required), 'attr': {'class': 'col-12'}}) }}
+                    <div class="erreur">{{ form_errors(form.nom) }}</div>
+                </div>
+            </div>
+            <div class="form-group col-12 col-lg-6 pl-0 mt-2 {% if form.prenom.vars.errors|length %}has-error{% endif %}">
+                {{ form_label(form.prenom, null, {'label_attr': {'class': 'col-12 control-label'}}) }}
+                <div class="">
+                    {{ form_widget(form.prenom, {'required': isrequired|default(form.prenom.vars.required), 'attr': {'class': 'col-12'}}) }}
+                    <div class="erreur">{{ form_errors(form.prenom) }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 d-flex pl-0 pr-0 flex-column flex-lg-row justify-content-lg-between">
+            <div class="form-group col-12 col-lg-6 pl-0 mt-2 {% if form.dateNaissance.vars.errors|length %}has-error{% endif %}">
+                {{ form_label(form.dateNaissance, null, {'label_attr': {'class': 'col-12 control-label'}}) }}
+                <div class="">
+                    {{ form_widget(form.dateNaissance, {'required': isrequired|default(form.dateNaissance.vars.required), 'attr': {'class': 'col-12 datePicker', 'autocomplete':'off'}}) }}
+                    <div class="erreur">{{ form_errors(form.dateNaissance) }}</div>
+                </div>
+            </div>
+            <div class="form-group col-12 col-lg-6 pl-0 mt-2 {% if form.nationalite.vars.errors|length %}has-error{% endif %}">
+                {{ form_label(form.nationalite, null, {'label_attr': {'class': 'col-12 control-label'}}) }}
+                <div class="">
+                    {{ form_widget(form.nationalite, {'required': isrequired|default(form.nationalite.vars.required), 'attr': {'class': 'col-12'}}) }}
+                    <div class="erreur">{{ form_errors(form.nationalite) }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 d-flex pl-0 pr-0 flex-column flex-lg-row justify-content-lg-between">
+            <div class="form-group col-12 col-lg-6 pl-0 mt-2 {% if form.telephone.vars.errors|length %}has-error{% endif %}">
+                {{ form_label(form.telephone, null, {'label_attr': {'class': 'col-12 control-label'}}) }}
+                <div class="">
+                    {{ form_widget(form.telephone, {'required': isrequired|default(form.telephone.vars.required), 'attr': {'class': 'col-12 '}}) }}
+                    <div class="erreur">{{ form_errors(form.telephone) }}</div>
+                </div>
+            </div>
+            <div class="form-group col-12 col-lg-6 pl-0 mt-2 {% if form.telephonePortable.vars.errors|length %}has-error{% endif %}">
+                {{ form_label(form.telephonePortable, null, {'label_attr': {'class': 'col-12 control-label'}}) }}
+                <div class="">
+                    {{ form_widget(form.telephonePortable, {'required': isrequired|default(form.telephonePortable.vars.required), 'attr': {'class': 'col-12'}}) }}
+                    <div class="erreur">{{ form_errors(form.telephonePortable) }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-12 pl-0 mt-2 {% if form.adresse.vars.errors|length %}has-error{% endif %}">
+            {{ form_label(form.adresse, null, {'label_attr': {'class': 'col-12 control-label'}}) }}
+            <div class="col-12 pl-0 pr-0">
+                {{ form_widget(form.adresse, {'required': isrequired|default(form.adresse.vars.required), 'attr': {'class': 'col-12 '}}) }}
+                <div class="erreur">{{ form_errors(form.adresse) }}</div>
+            </div>
+        </div>
+        <div class="col-12 d-flex pl-0 pr-0 flex-column flex-lg-row justify-content-lg-between">
+            <div class="form-group col-12 col-lg-6 pl-0 mt-2 {% if form.adresseBis.vars.errors|length %}has-error{% endif %}">
+                {{ form_label(form.adresseBis, null, {'label_attr': {'class': 'col-12 control-label'}}) }}
+                <div class="">
+                    {{ form_widget(form.adresseBis, {'required': isrequired|default(form.adresseBis.vars.required), 'attr': {'class': 'col-12 '}}) }}
+                    <div class="erreur">{{ form_errors(form.adresseBis) }}</div>
+                </div>
+            </div>
+            <div class="form-group col-12 col-lg-6 pl-0 mt-2 {% if form.ville.vars.errors|length %}has-error{% endif %}">
+                {{ form_label(form.ville, null, {'label_attr': {'class': 'col-12 control-label'}}) }}
+                <div class="">
+                    {{ form_widget(form.ville, {'required': isrequired|default(form.ville.vars.required), 'attr': {'class': 'col-12 '}}) }}
+                    <div class="erreur">{{ form_errors(form.ville) }}</div>
+                </div>
+            </div>
+        </div>
+
+        {#<div class="form-group col-12 pl-0 mt-2 {% if form.statutActuel.vars.errors|length %}has-error{% endif %}">#}
+            {#{{ form_label(form.statutActuel, null, {'label_attr': {'class': 'col-12 control-label'}}) }}#}
+            {#<div class="col-12 pl-0 pr-0">#}
+                {#{{ form_widget(form.statutActuel, {'required': isrequired|default(form.statutActuel.vars.required), 'attr': {'class': 'col-12 '}}) }}#}
+                {#<div class="erreur">{{ form_errors(form.statutActuel) }}</div>#}
+            {#</div>#}
+        {#</div>#}
+
+        <div class="col-12">
+            <div class="row">
+                <div class="col-12 col-lg-6">
+                    {#{{ macroField.blockInputRadio(form,'statutActuel', 0, 'col-12 statuts pl-0 select2R', null, 1) }}#}
+                    <div class="row form-group {% if form['statutActuel'].vars.errors|length %}has-error{% endif %}">
+                        <div class="col-12 control-label required">{{ form_label(form['statutActuel']) }}</div>
+                        {{ form_errors(form['statutActuel']) }}
+
+                        {% for choiceFormView in form['statutActuel'] %}
+                            <div class="col-12 col-sm-6 col-lg-12 d-flex flex-row align-items-center justify-content-between">
+                                <div class="col-2 col-sm-7 col-lg-2 radio">{{ form_widget(choiceFormView) }}</div>
+                                <div class="col-10 col-sm-5 col-lg-10 radio">{{ form_label(choiceFormView, null, {'label_attr': {'style': 'color: black'}}) }}</div>
+                            </div>
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 d-flex pl-0 pr-0 flex-column flex-lg-row justify-content-lg-between">
+            <div class="form-group col-12 col-lg-6 pl-0 mt-2 {% if form.fonction1.vars.errors|length %}has-error{% endif %}">
+                {{ form_label(form.fonction1, null, {'label_attr': {'class': 'col-12 control-label'}}) }}
+                <div class="">
+                    {{ form_widget(form.fonction1, {'required': isrequired|default(form.fonction1.vars.required), 'attr': {'class': 'col-12 '}}) }}
+                    <div class="erreur">{{ form_errors(form.fonction1) }}</div>
+                </div>
+            </div>
+            <div class="form-group col-12 col-lg-6 pl-0 mt-2 {% if form.fonction2.vars.errors|length %}has-error{% endif %}">
+                {{ form_label(form.fonction2, null, {'label_attr': {'class': 'col-12 control-label'}}) }}
+                <div class="">
+                    {{ form_widget(form.fonction2, {'required': isrequired|default(form.fonction2.vars.required), 'attr': {'class': 'col-12 '}}) }}
+                    <div class="erreur">{{ form_errors(form.fonction2) }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-12 pl-0 mt-2 {% if form.mobilite.vars.errors|length %}has-error{% endif %}">
+            {{ form_label(form.mobilite, null, {'label_attr': {'class': 'col-12 control-label'}}) }}
+            <div class="col-12 pl-0 pr-0">
+                {{ form_widget(form.mobilite, {'required': 'required', 'attr': {'class': 'col-12 '}}) }}
+                <div class="erreur">{{ form_errors(form.mobilite) }}</div>
+            </div>
+        </div>
+        <div style="display: none;">
+                {{ form_widget(form.candidatureOrigine, {'required': 'required', 'attr': {'class': 'col-12 '}}) }}
+        </div>
+        <div class="infos-form">
+            <p>Les champs avec une étoile (*) sont obligatoires.</p>
+        </div>
+        <div class="col-12 d-flex flex-column align-items-center form-group">
+            <button type="submit" class="candidat btn">VALIDER</button>
+            <a class="underline" href="{{ path('fos_user_security_login') }}">Retour</a>
+        </div>
+    </div>
+</div>
+{{ form_end(form) }}

@@ -8,15 +8,20 @@
         <meta name="robots" content="index, follow">
         <meta name="description" content="">
 
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}{{ nom_site }}{% endblock %}</title>
 
         {% block stylesheets %}{% endblock %}
 
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
-    <body>
-        {% block body %}{% endblock %}
-
-        {% block javascripts %}{% endblock %}
+    <body {% block bodyclass %}{% endblock %}>
+    <div id="header" class="site-header">
+        {% block header %}{% endblock %}
+    </div>
+    {% block content %}{% endblock %}
+    <footer class="site-footer">
+        {% block footer %}{% endblock %}
+    </footer>
+    {% block javascripts %}{% endblock %}
     </body>
 </html>

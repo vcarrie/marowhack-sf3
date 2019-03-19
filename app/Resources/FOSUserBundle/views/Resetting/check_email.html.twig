@@ -1,0 +1,24 @@
+{% extends "App/layout.html.twig" %}
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block title %}Espace Candidat - Mot de passe perdu{% endblock %}
+{% block bodyclass %}class="loginCandidat candidat"{% endblock %}
+
+{% block titleSite %}{% endblock %}
+
+{% block container %}
+
+    <div class="container">
+        <div class="row">
+            <div class="login-box in-center col-11 col-sm-6">
+                <div class="form-top">
+                    <h1 class="login">Mot de passe <span class="fat">perdu</span></h1>
+                </div>
+                <div class="form-bottom">
+                    <p>{{ 'resetting.check_email'|trans({'%tokenLifetime%': tokenLifetime, '%email%': app.request.get('username')})|nl2br }}</p>
+                    <p><a class="btn btn-secondary " href="{{ path('fos_user_security_login') }}" style="display:inline-block;float:right;">Retour</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

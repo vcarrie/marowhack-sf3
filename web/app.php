@@ -2,6 +2,11 @@
 
 use Symfony\Component\HttpFoundation\Request;
 
+umask(0002);
+//Donne les droits 775 sur les fichiers créés via le navigateur permettant
+// de faire un cache:clear quand le projet est déployé sur une VM a part
+
+
 require __DIR__.'/../vendor/autoload.php';
 if (PHP_VERSION_ID < 70000) {
     include_once __DIR__.'/../var/bootstrap.php.cache';

@@ -1,0 +1,32 @@
+{% extends "App/layout.html.twig" %}
+{% block bodyclass %}class="confirmedCandidat candidat"{% endblock %}
+{% block titleSite %}{% endblock %}
+
+
+{% block container %}
+    <div class="inner-bg">
+        <div class="container">
+
+            <div class="row justify-content-md-center">
+                <div class="in-center col-12 col-sm-10 col-lg-8 text">
+                    <h1>Espace Candidat</h1>
+                </div>
+            </div>
+            <div class="row justify-content-md-center">
+                <div class="form-box d-flex flex-column align-items-center">
+                    <div class="form-top">
+                      <h3>Inscription réussie</h3>
+                    </div>
+                    <div class="form-bottom">
+                      <p>
+                          Félicitations {{user.prenom}} {{user.nom}}, votre compte est maintenant activé.
+                      </p>
+                      <div class="in-center col-12 col-md-6 mt-4">
+                        <a class="btn btn-candidat" href="{{ path('definima_candidat_index') }}">Mon compte</a>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
