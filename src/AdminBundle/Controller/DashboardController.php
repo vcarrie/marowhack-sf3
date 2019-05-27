@@ -11,7 +11,6 @@ class DashboardController extends Controller {
     public function indexAction() {
         
         $cr = $this->getUser();
-        $this->addFlash('success', "lrenkg");
 
         $bundles = DashboardController::get_menus();
         return $this->render('AdminBundle:Dashboard:index.html.twig', array(
