@@ -1,0 +1,16 @@
+/*  -------------------------------------------------------
+    ------------------->>> BUTTONS <<<----------------------
+    -------------------------------------------------------  */
+
+
+button:active,
+button:focus,
+button [type="button"]:focus,
+button [type="button"]:active,
+input[type="submit"]:focus,
+input[type="submit"]:active,
+input:active,
+input:focus{
+  box-shadow: none !important;
+  outline: none !important;}
+

@@ -1,0 +1,189 @@
+{% block definima_media_widget %}
+
+    {% import _self as definima %}
+
+    {% spaceless %}
+        {% if display_front %}
+            {{ definima.render_media_front(form, false, form.vars.id, conf) }}
+        {% else %}
+            {{ definima.render_media(form, false, form.vars.id, conf) }}
+        {% endif %}
+    {% endspaceless %}
+
+{% endblock %}
+
+{% block definima_media_collection_widget %}
+
+    {% import _self as definima %}
+
+    {% spaceless %}
+        {% if prototype is defined %}
+            {% set attr = attr|merge({'data-prototype': definima.render_media(prototype, true, form.vars.id, conf)}) %}
+            {% set attr = attr|merge({'data-prototype-name': prototype.vars.name}) %}
+        {% endif %}
+        {% set attr = attr|merge({'data-allow-add': allow_add ? 1 : 0}) %}
+        {% set attr = attr|merge({'data-max': data_max ? data_max : 100}) %}
+        {% set attr = attr|merge({'data-min': data_min ? data_min : 0}) %}
+        {% set attr = attr|merge({'data-init-with-n-elements': data_init_with_n_elements ? data_init_with_n_elements : 1}) %}
+        {% set attr = attr|merge({'data-add-at-the-end': data_add_at_the_end ? data_add_at_the_end : false}) %}
+        {% set attr = attr|merge({'data-allow-remove': allow_delete ? 1 : 0 }) %}
+        {% set attr = attr|merge({'data-name-prefix': full_name}) %}
+
+        <div id="{{ form.vars.id }}"
+             class="media-list definima-media-list definima-media-collection" {% for k, v in attr %} {{ k }}="{{ v|e }}"{% endfor %}>
+            {% for media in form %}
+                {% if display_front %}
+                    {{ definima.render_media_front(media, true, form.vars.id, conf) }}
+                {% else %}
+                    {{ definima.render_media(media, true, form.vars.id, conf) }}
+                {% endif %}
+            {% endfor %}
+        </div>
+
+    {% endspaceless %}
+
+{% endblock %}
+
+{% macro render_media_front(form, collection = true, id, conf) %}
+    {% spaceless %}
+        <div class="definima-media media_front">
+            <div class="row">
+
+                {% if collection %}
+                    <div class="col-sm-3">
+                        <table class="table-sort">
+                            <tr class="table-sort-up">
+                                <td><a href="#" class="collection-up btn btn-default btn-x-sm"><span
+                                            class="fa fa-chevron-up"></span></a></td>
+                            </tr>
+                            <tr class="table-sort-down">
+                                <td><a href="#" class="collection-down btn btn-default btn-x-sm"><span
+                                            class="fa fa-chevron-down"></span></a></td>
+                            </tr>
+                        </table>
+                    </div>
+                {% endif %}
+
+                <div class="bloc-upload col-12">
+                    <div class="img-preview col-7 col-lg-8" id="preview{{ form.path.vars.id }}">
+                        {{ fileIcon(conf,form.path.vars.data,form.vars.name).html|raw }}
+                    </div>
+                    <div class="img-description {% if collection %}col-5 col-lg-4 img-description-collection {% else %}col-5 col-lg-4{% endif %}">
+                        {{ form_widget(form.path, {attr: {class: 'definima-media-path', 'data-conf': conf, 'data-nom': form.vars.name}}) }}
+                        {% if form.vars.allow_alt %}
+                            {{ form_label(form.alt, null, {label_attr: {class: 'control-label'}}) }}
+                            {{ form_widget(form.alt, {attr: {class: 'definima-media-alt'}}) }}
+                        {% endif %}
+
+                        {% if collection %}
+                            <div class="btn-group definima-browse-group" role="group">
+                                {% include '@DefinimaMedia/form/_btn_manager.html.twig' with {'id' : id, 'form' : form, 'conf': conf} only %}
+                            </div>
+                        {% else %}
+                            <div class="upload {% if not form.vars.allow_alt %}upload-no-alt{% endif %}">
+                                <div class="btn-group definima-browse-group" role="group">
+                                    {% include '@DefinimaMedia/form/_btn_manager.html.twig' with {'id' : id, 'form' : form, 'conf': conf, 'collection': false} only %}
+                                </div>
+                            </div>
+                        {% endif %}
+                        {% if collection %}
+                            <div class="actions pull-right">
+                                <a href="#" class="js-remove-collection btn btn-danger collection-remove collection-action"><span
+                                        class="fa fa-remove"></span></a>
+                            </div>
+                        {% endif %}
+                        <p style="font-size: 12px;font-style: italic;">
+                            Taille Max 2Mo
+                        </p>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="col-m-12 text-center">
+                <progress></progress>
+            </div>
+        </div>
+    {% endspaceless %}
+{% endmacro %}
+
+{% macro render_media(form, collection = true, id, conf) %}
+    {% spaceless %}
+        <div class="definima-media" style="height:100px; max-height:100px; min-height:100px;">
+            <div class="row align-items-center" style="position:relative; height:100px; max-height:100px; min-height:100px;">
+                <!--  -->
+
+                <div class="img-preview col-sm-6" id="preview{{ form.path.vars.id }}">
+                    {{ fileIcon(conf,form.path.vars.data,form.vars.name).html|raw }}
+                </div>
+
+                <div class="img-description {% if collection %}col-sm-4 img-description-collection bloc-droit-doc {% else %}col-sm-6{% endif %}">
+                    <table>
+                        <tr>
+                            <td class="td-label td-path"></td>
+                            <td>{{ form_widget(form.path, {attr: {class: 'definima-media-path', 'data-conf': conf, 'data-nom': form.vars.name}}) }}</td>
+                        </tr>
+
+                        {#{% if form.vars.allow_alt %}#}
+                        {#<tr>#}
+                        {#<td class="td-label">{{ form_label(form.alt, null, {label_attr: {class: 'control-label'}}) }}</td>#}
+                        {#<td>{{ form_widget(form.alt, {attr: {class: 'definima-media-alt'}}) }}</td>#}
+                        {#</tr>#}
+                        {#{% endif %}#}
+                    </table>
+                    {% if collection %}
+                        <div class="upload {% if not form.vars.allow_alt %}upload-no-alt{% endif %}">
+                            <div class="btn-group doc definima-browse-group" role="group">
+                                {% include '@DefinimaMedia/form/_btn_manager.html.twig' with {'id' : id, 'form' : form, 'conf': conf} only %}
+                            </div>
+                            <p style="font-size: 12px;font-style: italic;">
+                                Taille Max 2Mo
+                            </p>
+                        </div>
+                    {% else %}
+                        <div class="upload {% if not form.vars.allow_alt %}upload-no-alt{% endif %}">
+                            <div class="btn-group definima-browse-group" role="group">
+                                {% include '@DefinimaMedia/form/_btn_manager.html.twig' with {'id' : id, 'form' : form, 'conf': conf, 'collection': false} only %}
+                            </div>
+                            <p style="font-size: 12px;font-style: italic;">
+                                Taille Max 2Mo
+                            </p>
+                        </div>
+                    {% endif %}
+
+                </div>
+
+                {% if collection %}
+                    <div class="col-sm-2 admin-doc">
+                        <table class="table-sort doc">
+                            <tr class="table-sort-up">
+                                <td>
+                                    <a href="#" class="collection-up btn btn-default btn-x-sm">
+                                        <span class="fa fa-chevron-up"></span>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr class="table-sort-down">
+                                <td>
+                                    <a href="#" class="collection-down btn btn-default btn-x-sm">
+                                        <span class="fa fa-chevron-down"></span>
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
+                        {% if collection %}
+                            <a href="#" class=" js-remove-collection btn collection-remove collection-action">
+                                <span class="fa fa-times"></span>
+                            </a>
+                        {% endif %}
+                    </div>
+                {% endif %} 
+            </div>
+
+            <div class="col-m-12 text-center">
+                <progress></progress>
+            </div>
+        </div>
+    {% endspaceless %}
+{% endmacro %}

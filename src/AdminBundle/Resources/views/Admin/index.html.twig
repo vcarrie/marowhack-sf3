@@ -1,0 +1,103 @@
+{% extends 'AdminBundle::layout.html.twig' %}
+
+{% block contentadmin %}
+
+    <div class="card">
+        <div class="overlay" style="display: none;">
+            <i class="fa fas fa-sync fa-spin"></i>
+        </div>
+        <div class="card-header">
+            <h3 class="card-title">
+                <i class="nav-icon fas fa-users-cog"></i>
+                &nbsp;&nbsp;&nbsp;Liste des administrateurs
+            </h3>
+            <div class="card-tools">
+                <a href="{{ path('admin_gestion_admin_new') }}" class="btn btn-sm btn-success"><i class="fas fa-plus"></i>&nbsp;&nbsp;&nbsp;Ajouter un administrateur</a>
+            </div>
+        </div>
+
+        <div class="card-body cont-liste">
+
+
+            <div class="well"></div>
+            <table class="records_list table table-hover">
+                <thead>
+                    <tr>
+                        <th>Nom - Prénom</th>
+                        <th>Email</th>
+                        <th>Rôles</th>
+                        <th>Créer / Dernière connexion</th>
+                        <th>Active</th>
+                        <th class="text-right" data-sorting="0">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entity in admins %}
+                        <tr>                          
+                            <td><a href="{{ path('admin_gestion_admin_edit', { 'id': entity.id }) }}">{{ entity.nom }} {{ entity.prenom }}</a></td>
+                            <td><a href="{{ path('admin_gestion_admin_edit', { 'id': entity.id }) }}">{{ entity.email }}</a></td>
+                            <td>
+
+                                {% for role in entity.roles %}
+                                    {% if not (entity.roles|length > 1 and role == "ROLE_USER") %}
+
+                                        <span class="badge                     		
+                                              {% if role == "ROLE_SUPER_ADMIN" %}
+                                                  bg-black">Admin<sup>+</sup>
+                                              {% elseif role == "ROLE_ADMIN" %}
+                                                  bg-maroon">Admin
+                                              {% elseif role == "ROLE_CONSULTANT" %}
+                                                  bg-orange">Consultant
+                                              {% elseif role == "ROLE_USER" %}
+                                                  bg-primary">Client
+                                              {% else %}
+                                                  {{ role|e }}
+                                              {% endif %}  
+                                        </span>                        	
+                                    {% endif %}
+                                {% endfor %}
+
+                            </td>
+                            <td data-order="{{ entity.created|date('Ymd') }}">{% if entity.created %}{{ entity.created|date('d-m-Y') }}{% else %}/{% endif %} / {% if entity.lastLogin %}{{ entity.lastLogin|date('d-m-Y H:m') }}{% else %}/{% endif %}</td>
+                            <td data-order="{{entity.enabled?'1':'0'}}">{% if entity.enabled %}<i class="fa fa-check" aria-hidden="true"></i>{% else %}<i class="fa fa-times" aria-hidden="true"></i>{% endif%}</td>
+                            <td class="text-right">
+                                <div class="btn-group" role="group" aria-label="...">
+                                    <a href="{{ path('admin_gestion_admin_edit', { 'id': entity.id }) }}" class="btn btn-warning btn-sm" title="Modifier"><i class="far fa-edit"></i></a>
+                                        {% if is_granted('ROLE_ADMIN') %}
+                                        <a href="#" class="btn btn-danger btn-sm deluser" data-id="{{entity.id}}" title="Supprimer"><i class="far fa-trash-alt"></i></a>
+                                        {% endif %}
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer">
+
+        </div>               
+    </div>  
+
+    <div class="modal" id="delModal" role="dialog" aria-labelledby="myModalLabel" data-url="{{path('admin_gestion_admin_delete', {'id':'-id-'})}}">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Supprimer un administrateur</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+                </div>
+                <div class="modal-body">
+                    Voulez-vous supprimer cet administrateur ?
+
+                    {{ form_start(delete_form) }}
+                    {{ form_widget(delete_form) }}
+                    {{ form_end(delete_form) }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger supprimer">Supprimer cet administrateur</button>
+                    <button type="button" class="btn btn-outline" data-dismiss="modal">Non</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %} 

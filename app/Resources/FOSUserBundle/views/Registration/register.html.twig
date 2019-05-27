@@ -1,5 +1,5 @@
 {% extends "App/layout.html.twig" %}
-{% block bodyclass %}class="registerCandidat candidat"{% endblock %}
+{% block bodyclass %}class=""{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -7,20 +7,6 @@
 
 {% block javascripts %}
     {{ parent() }}
-    <script src="{{ asset('tools/bootstrap-datetimepicker/js/moment.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('tools/bootstrap-datetimepicker/js/moment-with-locales.min.js') }}"
-    type="text/javascript"></script>
-    <script src="{{ asset('tools/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js') }}"></script>
-
-    <script src="{{ asset('bundles/definimacandidat/js/candidat/candidat_inscription.js') }}" type="text/javascript"></script>    <script>
-        $(document).ready(function () {
-            $('.datePicker').datetimepicker({
-                locale: 'fr',
-                viewMode: 'years',
-                format: 'DD/MM/YYYY'
-            });
-        });
-    </script>
 {% endblock %}
 
 
@@ -34,7 +20,7 @@
         <div class="row">
             <div class="login-box in-center col-11 col-sm-6">
                 <div class="form-top">
-                    <h1 class="login">Création d'un <span class="fat">compte candidat</span></h1>
+                    <h1 class="login">Création d'un <span class="fat">compte</span></h1>
                 </div>
                 <div class="form-bottom clearfix">
                     {% include "FOSUserBundle:Registration:register_content.html.twig" %}

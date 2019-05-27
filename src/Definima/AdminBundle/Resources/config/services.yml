@@ -1,6 +1,0 @@
-services:
-  menu.twig_extension:
-    class: Definima\AdminBundle\Twig\MenuExtension
-    public: false
-    tags:
-      - { name: twig.extension }

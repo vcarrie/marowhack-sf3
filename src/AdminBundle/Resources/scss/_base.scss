@@ -1,0 +1,35 @@
+/*  -------------------------------------------------------
+    ------------------->>> BASE <<<----------------------
+    -------------------------------------------------------  */
+
+
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+ol, ul {
+  list-style: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+a {
+  text-decoration: none;
+
+  &:active,
+  &:focus,
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+// IMAGE
+
+.img-responsive{
+  display: block;
+  max-width: 100%;
+  height: auto;
+}

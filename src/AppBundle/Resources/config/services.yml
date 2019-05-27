@@ -1,0 +1,3 @@
+services:
+    AppBundle\Security\AccessDeniedHandler:
+        arguments: ['@security.helper', '@security.http_utils']     

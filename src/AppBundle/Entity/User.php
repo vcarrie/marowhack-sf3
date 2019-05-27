@@ -12,10 +12,10 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Table(name="user")
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="type", type="string")
- * @ORM\DiscriminatorMap({"admin" = "Definima\AdminBundle\Entity\Admin"})
+ * @ORM\DiscriminatorMap({"admin" = "AdminBundle\Entity\Admin"})
  */
-abstract class User extends BaseUser
-{
+abstract class User extends BaseUser {
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -53,26 +53,31 @@ abstract class User extends BaseUser
      */
     private $isDeleted;
 
-
-
-    public function __construct()
-    {
+    public function __construct() {
         parent::__construct();
+        $this->isDeleted = 0;
     }
 
     /**
      * @return bool
      */
-    public function isDeleted()
-    {
+    public function isDeleted() {
         return $this->isDeleted;
     }
 
     /**
      * @param bool $isDeleted
      */
-    public function setIsDeleted($isDeleted)
-    {
+    public function setIsDeleted($isDeleted) {
         $this->isDeleted = $isDeleted;
     }
+
+    public function getCreated() {
+        return $this->created;
+    }
+
+    public function getUpdated() {
+        return $this->updated;
+    }
+
 }

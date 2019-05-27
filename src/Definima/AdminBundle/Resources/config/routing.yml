@@ -1,7 +1,0 @@
-definima_admin_gestion:
-    resource: "@DefinimaAdminBundle/Resources/config/routing/admin.yml"
-    prefix:   /admin/gestion
-
-definima_admin_dashboard:
-    resource: "@DefinimaAdminBundle/Resources/config/routing/dashboard.yml"
-    prefix:   /admin

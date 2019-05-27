@@ -1,0 +1,45 @@
+{% extends 'AdminBundle::layout.html.twig' %}
+{% import 'AdminBundle:Macros:field.html.twig' as macroField %}
+
+{% block contentadmin %}
+    <div class="card">
+        <div class="overlay" style="display: none;">
+            <i class="fa fas fa-sync fa-spin"></i>
+        </div>
+        <div class="card-header">
+            <h3 class="card-title">
+                <i class="nav-icon fas fa-users-cog"></i>
+                &nbsp;&nbsp;&nbsp;Modifier un administrateur
+            </h3>
+
+        </div>
+        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+        <div class="card-body">   
+            {{ form_errors(form) }}
+            
+            {{ macroField.blockInput(form,'enabled',0,'switch') }} 
+            
+            {% if is_granted('ROLE_SUPER_ADMIN') %}
+                <div class="row form-group ">
+                    <label class="col-sm-3 control-label text-right" for="adminbundle_admin_su">Super Admin</label>
+                    <div class="col-sm-8">
+                        <div class="">
+                            <input type="checkbox" id="super_admin" name="super_admin" class="form-horizontal switch" value="1" {% if admin.isSuperAdmin() %}checked{% endif %}> 
+                        </div>     
+                    </div>
+                </div>                     
+            {% endif %}
+
+            {{ macroField.blockInput(form,'nom') }}
+            {{ macroField.blockInput(form,'prenom') }}
+            {{ macroField.blockInput(form,'email') }}
+            {{ macroField.blockInputRepeated(form,'newpass', null, null, null, 0) }}                      
+        </div>    
+        {{ macroField.blockInputSubmit(form, 'Modifier', 'admin_gestion_admin_index') }}
+
+        {{ form_end(form) }}
+        {{ form(form) }}    
+    </div>  
+</div>
+</div>  
+{% endblock %}

@@ -1,0 +1,16 @@
+<span class="btn fileinput-button">
+  <i class="far fa-folder-open"></i>
+    <input
+            class="fileupload input-doc {{ collection is defined ? 'alone' }}"
+            type="file"
+            id="{{ id }}"
+            {#data-url="{% if is_granted('ROLE_CLIENT') %}{{ path('admin_media_upload', {conf:conf, idUser:'0', nom:form.vars.name}) }}{% else %}{{ path('media_upload', {conf:conf, nom:form.vars.name}) }}{% endif %}"#}
+            data-url="{{ path('media_upload', {conf:conf, nom:form.vars.name}) }}"
+            name="files[]" multiple="" style="height: 25px;" {% if form.vars.required and form.vars.data.path is not defined %}required="required"{% endif  %}
+            {#accept="{{ fileManager.configuration.accept is defined ? fileManager.configuration.accept : (fileManager.type ? accept(fileManager.type)) }}"#}
+            {#{% if form.vars.required %} required="required"{% endif %}#}
+    >
+    <img alt="spinning gear" src="{{ asset('/bundles/app/img/icons/chargement.gif') }}" class="d-none gear-upload" style="width: 30px">
+
+</span>
+<span class="btn definima-media-button-erase"><i class="fa fa-trash-alt"></i></span>

@@ -1,0 +1,14 @@
+services:
+  menu.twig_extension:
+    class: AdminBundle\Twig\MenuExtension
+    public: false
+    tags:
+      - { name: twig.extension }
+
+  AdminBundle\Security\AccessDeniedHandler:
+    arguments: ['@security.helper', '@security.http_utils']
+
+  twig.ansi_extension:
+    class: SensioLabs\AnsiConverter\Bridge\Twig\AnsiExtension
+    tags:
+      - { name: twig.extension }

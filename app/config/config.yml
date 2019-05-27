@@ -6,8 +6,21 @@ imports:
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    locale: en
+    locale: fr
 
+sonata_seo: 
+    page:
+        title: Socle Symfony Definima
+        metas:
+            name:
+                description: The default description of the page
+                keywords: default, sonata, seo
+cmf_seo:
+    content_listener:
+        enabled: false
+    sitemap:
+        enabled: false
+        
 framework:
     #esi: ~
     #translator: { fallbacks: ['%locale%'] }
@@ -39,7 +52,7 @@ twig:
     strict_variables: '%kernel.debug%'
     globals:
         agenceCrea: Definima
-        nom_site: Socle Sf3
+        nom_site: Socle Symfony
 
 # Doctrine Configuration
 doctrine:
@@ -51,6 +64,9 @@ doctrine:
         user: '%database_user%'
         password: '%database_password%'
         charset: UTF8
+        types:
+            media: Definima\MediaBundle\Type\MediaType
+            media_collection: Definima\MediaBundle\Type\MediaCollectionType
         # if using pdo_sqlite as your database driver:
         #   1. add the path in parameters.yml
         #     e.g. database_path: '%kernel.project_dir%/var/data/data.sqlite'
@@ -65,6 +81,8 @@ doctrine:
         dql:
             datetime_functions:
                 DATE_FORMAT: AppBundle\DQL\DateFormatFunction
+                DATE: AppBundle\DQL\Date
+                TIME: AppBundle\DQL\Time
             string_functions:
                 GROUP_CONCAT: AppBundle\DQL\GroupConcat
 
@@ -96,15 +114,15 @@ pugx_multi_user:
     users:
         admin:
             entity:
-                class: Definima\AdminBundle\Entity\Admin
+                class: AdminBundle\Entity\Admin
 #        Bon exemple de réécriture de PUGX
 
 #        candidat:
 #            entity:
-#                class: Definima\CandidatBundle\Entity\Candidat
+#                class: CandidatBundle\Entity\Candidat
 #            registration:
 #                form:
-#                    type: Definima\CandidatBundle\Form\CandidatRegisterType
+#                    type: CandidatBundle\Form\CandidatRegisterType
 #                    name: fos_user_registration_form
 #                    validation_groups:  [Registration, Default]
 #                template: DefinimaCandidatBundle:Candidat:register.html.twig
@@ -118,7 +136,6 @@ stof_doctrine_extensions:
             loggable: true
             sluggable: true
 
-
 assetic:
     debug: '%kernel.debug%'
     use_controller: '%kernel.debug%'
@@ -126,7 +143,5 @@ assetic:
         cssrewrite: ~
         scssphp:
             formatter: 'Leafo\ScssPhp\Formatter\Compressed'
-            compass: true
+            compass: false
             public: true
-    #yui_css:
-    #    jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.8.jar"

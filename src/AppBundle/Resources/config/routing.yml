@@ -2,7 +2,7 @@ app_index:
     path:     /
     defaults: { _controller: AppBundle:Default:index }
 
-definima_app_ville_ajax:
+app_ville_ajax:
     path:     /villeajax
     defaults: { _controller: AppBundle:Default:villeAjax }
     methods:  [GET, POST]

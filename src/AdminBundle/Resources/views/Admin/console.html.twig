@@ -1,0 +1,89 @@
+{% extends '@Admin/layout.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            var welcome = $('#retourCmd').html();
+
+            $('.commandes li').on('click', function () {
+                $url = $(this).data('url');
+                $('.card .overlay').show();
+                $.ajax({
+                    type: 'get',
+                    url: $url,
+                    dataType: 'json',
+                    success: function (data) {
+                        $('#retourCmd').html(data.retour);
+                        $('.card .overlay').hide();
+                    }
+                });
+            });
+
+            $('.clear').on('click', function () {
+                $('#retourCmd').html(welcome);
+            });
+        });
+    </script>
+
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        #retourCmd{
+            width: 100%;
+            height: 500px;
+            background-color: black;
+            border: 5px double gray;
+            padding: 10px;
+        }
+        .clear {
+            background-color: gray;
+            color: white;
+            padding: 0 11px 2px 11px;
+            border-bottom-right-radius: 3px;
+            border-bottom-left-radius: 3px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 12px;
+        }
+    </style>
+{% endblock %}
+
+
+{% block contentadmin %}
+
+    <div class="card">
+        <div class="overlay" style="display: none;">
+            <i class="fa fas fa-sync fa-spin"></i>
+        </div>
+        <div class="card-header">
+            <h3 class="card-title">
+                <i class="fas fa-terminal"></i>
+                &nbsp;&nbsp;&nbsp;Console
+            </h3>
+            <div class="card-tools">
+                <ul class="commandes text-center">
+                    <li data-url="{{ path('admin_gestion_admin_commande', { 'commande': 'clearprod' })}}" class="btn btn-sm btn-info">Vider Cache DEV</li>
+                    <li data-url="{{ path('admin_gestion_admin_commande', { 'commande': 'cleardev' })}}" class="btn btn-sm btn-info" data-cmd="cleardev">Vider Cache PROD</li>
+
+                    <li data-url="{{ path('admin_gestion_admin_commande', { 'commande': 'fullassets' })}}" class="btn btn-sm btn-primary" data-cmd="fullassets">Assets Install (css+js+img...)</li>
+                    <li data-url="{{ path('admin_gestion_admin_commande', { 'commande': 'asseticdump' })}}" class="btn btn-sm btn-primary" data-cmd="asseticdump">Assetic Dump (scss)</li>
+                    <li data-url="{{ path('admin_gestion_admin_commande', { 'commande': 'assetsinstall' })}}" class="btn btn-sm btn-primary" data-cmd="assetsinstall">Assets + Assetic</li>
+
+                    <li data-url="{{ path('admin_gestion_admin_commande', { 'commande': 'schemaupdate' })}}" class="btn btn-sm btn-danger" data-cmd="schemaupdate">Update BDD</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card-body">
+
+            <div id="retourCmd">             
+                {{ welcome|raw }}
+            </div>          
+            <div class="clear float-right">Effacer</div>
+        </div>
+    </div>
+
+{% endblock %}

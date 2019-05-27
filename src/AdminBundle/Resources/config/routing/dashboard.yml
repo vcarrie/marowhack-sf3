@@ -1,0 +1,4 @@
+admin_dashbord_index:
+    path:     /
+    defaults: { _controller: AdminBundle:Dashboard:index }
+    methods:  GET

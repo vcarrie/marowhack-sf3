@@ -1,0 +1,11 @@
+{% import 'AdminBundle:Macros:menu.html.twig' as macroMenu %}
+
+{{ macroMenu.menuLien('Tableau de bord', path('admin_dashbord_index'), active, 'fa fa-tachometer-alt') }}
+
+{% set menus = 
+    [
+        {'value': 'Liste des administrateurs', 'url' : path('admin_gestion_admin_index'), 'icone':'far fa-circle'},
+        {'value': 'Console', 'url' : path('admin_gestion_admin_console'), 'icone':'far fa-circle', 'role':'ROLE_SUPER_ADMIN'},
+    ] 
+%}
+{{ macroMenu.menuArbre('Administration', menus, 'fa fa-cog', active, 'ROLE_ADMIN') }}

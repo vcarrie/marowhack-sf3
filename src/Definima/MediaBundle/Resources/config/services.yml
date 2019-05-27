@@ -1,0 +1,19 @@
+services:
+    file_type_extension:
+        class: Definima\MediaBundle\Twig\FileTypeExtension
+        tags:
+            - { name: twig.extension }
+        arguments: ['@file_type_service']
+        public: true
+
+    file_type_service:
+        class: Definima\MediaBundle\Service\FileTypeService
+        arguments: ['@router', '@security.helper']
+        public: true
+
+    order_extension:
+        class: Definima\MediaBundle\Twig\OrderExtension
+        tags:
+            - { name: twig.extension }
+        arguments: ['@router']
+        public: true
