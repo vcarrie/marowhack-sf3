@@ -9,3 +9,4 @@
     ] 
 %}
 {{ macroMenu.menuArbre('Administration', menus, 'fa fa-cog', active, 'ROLE_ADMIN') }}
+{{ macroMenu.menuLien('Retour admin', path('admin_dashbord_index', {'_switch_user': '_exit'}), active, 'fa fa-sign-out-alt', null, 'ROLE_PREVIOUS_ADMIN') }}
