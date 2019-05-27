@@ -67,7 +67,7 @@
                                         <a href="#" class="btn btn-danger btn-sm deluser" data-id="{{entity.id}}" title="Supprimer"><i class="far fa-trash-alt"></i></a>
                                         {% endif %}
                                         {% if is_granted('ROLE_SUPER_ADMIN') %}
-                                            <a href="{{ path('admin_dashbord_index', {'_switch_user': entity.username}) }}" class="btn btn-primary btn-sm" title="SU"><i class="fa fa-arrow-right"></i></a>
+                                            <a href="{{ path('admin_dashboard_index', {'_switch_user': entity.username}) }}" class="btn btn-primary btn-sm" title="SU"><i class="fa fa-arrow-right"></i></a>
                                         {% endif %}
                                 </div>
                             </td>

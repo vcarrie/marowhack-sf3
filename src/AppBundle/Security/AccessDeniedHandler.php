@@ -24,7 +24,7 @@ class AccessDeniedHandler implements AccessDeniedHandlerInterface {
         $target_path = 'app_index';
 
         if($this->security->isGranted('ROLE_ADMIN')) {
-            $target_path = 'admin_dashbord_index';
+            $target_path = 'admin_dashboard_index';
         }
         
         return $this->httpUtils->createRedirectResponse($request, $target_path);

@@ -19,7 +19,6 @@ security:
             chain:
                 providers: [admin]
 
-
     firewalls:
 
         dev:
@@ -45,7 +44,7 @@ security:
                 csrf_token_generator: security.csrf.token_manager
                 check_path: admin_login_check
                 login_path: admin_login
-                default_target_path: admin_dashbord_index
+                default_target_path: admin_dashboard_index
             logout:
                 path: admin_logout
                 target: admin_login
