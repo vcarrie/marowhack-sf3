@@ -1,6 +1,20 @@
 {% extends 'AdminBundle::layout.html.twig' %}
 {% import 'AdminBundle:Macros:field.html.twig' as macroField %}
 
+{% block stylesheets %}
+    {{ parent() }}
+
+    <link rel="stylesheet" href="{{ asset('bundles/media/css/media_bs4.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/media/libs/blueimp-file-upload/css/jquery.fileupload.css') }}">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script src="{{ asset('vendor/jquery-collection/jquery.collection.js') }}"></script>
+    {% include '@Media/assets/include_js.html.twig' %}
+{% endblock %}
+
 {% block contentadmin %}
     <div class="card">
         <div class="overlay" style="display: none;">
@@ -17,7 +31,7 @@
         <div class="card-body">   
             {{ form_errors(form) }}
             
-            {{ macroField.blockInput(form,'enabled',0,'switch') }} 
+            {{ macroField.formSwitch(form,'enabled') }}
             
             {% if is_granted('ROLE_SUPER_ADMIN') %}
                 <div class="row form-group ">
@@ -30,10 +44,12 @@
                 </div>                     
             {% endif %}
 
-            {{ macroField.blockInput(form,'nom') }}
+            {{ macroField.blockInput(form,'nom', null, null, null, null, null, null, null, '@') }}
             {{ macroField.blockInput(form,'prenom') }}
             {{ macroField.blockInput(form,'email') }}
-            {{ macroField.blockInputRepeated(form,'newpass', null, null, null, 0) }}                      
+            {{ macroField.blockInputRepeated(form,'newpass', null, null, null, 0) }}
+            {{ macroField.blockInput(form,'profile', null, null, null, null, null , 2, 8) }}
+
         </div>    
         {{ macroField.blockInputSubmit(form, 'Modifier', 'admin_gestion_admin_index') }}
 

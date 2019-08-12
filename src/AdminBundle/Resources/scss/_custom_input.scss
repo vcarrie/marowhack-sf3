@@ -1,0 +1,70 @@
+
+.custom-control {
+    position: relative;
+    /* alignement flex pour mettre en ligne le label et ses speudo éléments before et after */
+    display: flex;
+    align-items: flex-end;
+    /*  on donne un ehauteur minimum afin que le label puisse s'aligner horizontalement avec le speudo element before*/
+    min-height: 25px;
+    /* padding du label par rapport au speudo élément before */
+    padding-left: 2em;
+    .custom-control-input {
+        position: absolute;
+        left: 1px;
+        top: 8px;
+        opacity: 0;
+        width: 20px;
+        height: 20px;
+        z-index: 1;
+    }
+    .custom-control-label {
+        color: $colorProject;
+        font-size:16px;
+        font-weight:normal;
+        padding-left: 0.3rem;
+        &:before{
+            position: absolute;
+            top: 0;
+            left:-26px;
+            display: block;
+            width: 20px;
+            height: 20px;
+            pointer-events: none;
+            content: "";
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            background-color: white;
+            @include radius(0);
+            border:1px solid $grey;
+            box-shadow: none;
+        }
+        &:after{
+            position: absolute;
+            top: 0.1em;
+            left: -24px;
+            display: block;
+            width: 20px;
+            height: 20px;
+            content: "";
+        }
+    }
+    .custom-control-input:checked ~ .custom-control-label{
+        color:$colorProject;
+        font-weight:bold;
+    }
+    .custom-control-input:checked ~ .custom-control-label::before {
+        background: $colorProject;
+        border-color:$colorProject;
+        @include radius(0);
+        left:-26px;
+    }
+    .custom-control-input:checked~ .custom-control-label::after {
+        content: '';
+        position: absolute;
+        top: 0px;
+        left: -25px;
+        color: white;
+    }
+}

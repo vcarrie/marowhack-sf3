@@ -1,34 +1,9 @@
-@import 'base';
-@import 'variables';
-@import 'fonts';
-@import 'buttons';
+@import 'layout/base';
+@import 'layout/variables';
+@import 'layout/fonts';
+@import 'layout/mixins';
 
-$version: 3;
-$current-prefix: 1;
-$display: flex;
-$properties: (display: $display);
-//
-//@mixin flexbox($properties, $version: null) {
-//
-//   @if $version and $current-prefix or not $version or $version == 3 {
-//      @each $prop, $value in $properties {
-//         @debug $prop == display;
-//         @if $prop == display {
-//            @debug salut;
-//            display: $value;
-//         } @else {
-//            @debug done;
-//            display: $prop;
-//         }
-//      }
-//   }
-//
-//}
-//
-//
-//// Values for $display are: flex (default), inline-flex
-//@mixin display-flex($display: flex-end) {
-//   @include flexbox((display: $display));
-//}
-//
 
+@import 'layout/layout';
+
+@import 'layout/buttons';

@@ -8,19 +8,6 @@ imports:
 parameters:
     locale: fr
 
-sonata_seo: 
-    page:
-        title: Socle Symfony Definima
-        metas:
-            name:
-                description: The default description of the page
-                keywords: default, sonata, seo
-cmf_seo:
-    content_listener:
-        enabled: false
-    sitemap:
-        enabled: false
-        
 framework:
     #esi: ~
     #translator: { fallbacks: ['%locale%'] }
@@ -53,6 +40,9 @@ twig:
     globals:
         agenceCrea: Definima
         nom_site: Socle Symfony
+        societe: Definima
+        siteWeb: socle@definima.com
+        mail: valentin@definima.net
 
 # Doctrine Configuration
 doctrine:
@@ -65,8 +55,8 @@ doctrine:
         password: '%database_password%'
         charset: UTF8
         types:
-            media: Definima\MediaBundle\Type\MediaType
-            media_collection: Definima\MediaBundle\Type\MediaCollectionType
+            media: MediaBundle\Type\MediaType
+            media_collection: MediaBundle\Type\MediaCollectionType
         # if using pdo_sqlite as your database driver:
         #   1. add the path in parameters.yml
         #     e.g. database_path: '%kernel.project_dir%/var/data/data.sqlite'
@@ -86,13 +76,60 @@ doctrine:
             string_functions:
                 GROUP_CONCAT: AppBundle\DQL\GroupConcat
 
+
+cmf_seo:
+    persistence:
+        orm: true
+    content_listener:
+        enabled: false
+    sitemap:
+        enabled: false
+    form:
+        data_class:
+            seo_metadata: 'Symfony\Cmf\Bundle\SeoBundle\Model\SeoMetadata'
+        options:
+            generic_metadata: true
+
+
+sonata_seo:
+    encoding:         UTF-8
+    page:
+        title:            Vos professionnels proches de chez vous - Rcommerce
+        default:          sonata.seo.page.default
+        metas:
+            name:
+                keywords:             "Rcommerce"
+                description:          "Retrouvez avec RCommerce vos professionnels proches de chez vous (Belin-Beliet ou Bassin d'arcachon). Nos artisans vous accompagnent dans votre quotidien."
+
+            property:
+                # Facebook application settings
+                #'fb:app_id':          XXXXXX
+                #'fb:admins':          admin1, admin2
+
+                # Open Graph information
+                # see http://developers.facebook.com/docs/opengraphprotocol/#types or http://ogp.me/
+                'og:site_name':       "Rcommerce"
+                'og:description':     "Retrouvez avec RCommerce vos professionnels proches de chez vous (Belin-Beliet ou Bassin d'arcachon). Nos artisans vous accompagnent dans votre quotidien."
+
+            http-equiv:
+                'Content-Type':         text/html; charset=utf-8
+                #'X-Ua-Compatible':      IE=EmulateIE7
+
+            charset:
+                UTF-8:    ''
+
+        head:
+            'xmlns':              http://www.w3.org/1999/xhtml
+            'xmlns:og':           http://opengraphprotocol.org/schema/
+
+
 # Swiftmailer Configuration
 swiftmailer:
     transport: '%mailer_transport%'
     host: '%mailer_host%'
     username: '%mailer_user%'
     password: '%mailer_password%'
-    spool: { type: memory }
+#    spool: { type: memory }
 
 sensio_framework_extra:
    router:
@@ -145,3 +182,13 @@ assetic:
             formatter: 'Leafo\ScssPhp\Formatter\Compressed'
             compass: false
             public: true
+
+media:
+    conf:
+        admin_profil:
+            dir: "../web/uploads/public/admin/profil"
+            type: 'file'
+            accept: '.jpeg,.jpg,.png'
+            upload:
+                max_file_size: 2097152 #10Mo (1Mo = 1048576) size in bytes
+                image_versions: {'thumbnail': {crop: true, max_width: 600, max_height: 600}, 'slider': {crop: true, max_width: 870, max_height: 630}}

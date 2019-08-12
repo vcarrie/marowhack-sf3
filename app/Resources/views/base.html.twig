@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html {{ sonata_seo_html_attributes() }}>
-    <head {{ sonata_seo_head_attributes() }}>
+<html>
+    <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,22 +8,25 @@
         <meta name="robots" content="index, follow">
         <meta name="description" content="">
 
-        {% block title %}{{ sonata_seo_title() }}{% endblock %}
-        {{ sonata_seo_metadatas() }}
-        {{ sonata_seo_link_canonical() }}
-        {{ sonata_seo_lang_alternates() }}
-        
+        <title>{% block title %}{% endblock %}</title>
+
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
-    <body {% block bodyclass %}{% endblock %}>
-    <div id="header" class="site-header">
+
+    <body class="{% block bodyclass %}{% endblock %}">
+
+    <header>
         {% block header %}{% endblock %}
-    </div>
+    </header>
+
     {% block content %}{% endblock %}
-    <footer class="site-footer">
+
+    <footer>
         {% block footer %}{% endblock %}
     </footer>
+
     {% block javascripts %}{% endblock %}
+
     </body>
 </html>

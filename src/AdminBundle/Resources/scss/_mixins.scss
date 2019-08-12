@@ -1,0 +1,360 @@
+/*  -------------------------------------------------------
+    ------------------->>> MIXINS <<<----------------------
+    -------------------------------------------------------  */
+
+
+
+
+@mixin radius($radius) {
+   /* Safari 3-4, iOS 1-3.2, Android 1.6- */
+  -webkit-border-radius: $radius; 
+  /* Firefox 1-3.6 */
+  -moz-border-radius: $radius; 
+  /* Opera 10.5, IE 9, Safari 5, Chrome, Firefox 4, iOS 4, Android 2.1+ */
+  border-radius: $radius;
+}
+
+
+/*Flexbox*/
+%flex {
+    display: -webkit-box; /* OLD - iOS 6-, Safari 3.1-6 */
+    display: -moz-box; /* OLD - Firefox 19- (buggy but mostly works) */
+    display: -ms-flexbox; /* TWEENER - IE 10 */
+    display: -webkit-flex; /* NEW - Chrome */
+  display: flex; /* NEW, Spec - Opera 12.1, Firefox 20+ */
+}
+
+@mixin flex($flexDirection, $alignItems,$justifyContent ) {
+  @extend %flex;
+    -webkit-flex-direction: $flexDirection;
+    -ms-flex-direction: $flexDirection;
+  flex-direction: $flexDirection;
+    -webkit-align-items: $alignItems;
+    -ms-flex-align: $alignItems;
+  align-items: $alignItems;
+    -webkit-justify-content: $justifyContent;
+    -ms-flex-pack: $justifyContent;
+  justify-content: $justifyContent;
+}
+
+@mixin justifyContent($string) {
+    -webkit-justify-content: $string;
+    -ms-flex-pack: $string;
+  justify-content: $string;
+}
+
+@mixin alignItems($string) {
+    -webkit-align-items: $string;
+    -ms-flex-align: $string;
+  align-items: $string;
+}
+
+@mixin order($integer) {
+    -webkit-box-ordinal-group: $integer; /*OLD - iOS 6-, Safari 3.1-6 */
+    -moz-box-ordinal-group: $integer; /*OLD - Firefox 19- */
+    -ms-flex-order: $integer; /*TWEENER - IE 10 */
+    -webkit-order: $integer; /*NEW - Chrome */
+  order: $integer;
+}
+
+@mixin flexWrap($string){
+    -webkit-flex-wrap: $string;
+    -ms-flex-wrap: $string;
+  flex-wrap: $string;
+}
+
+@mixin flexDirection($string){
+    -webkit-flex-direction: $string;
+    -ms-flex-direction: $string;
+  flex-direction: $string;
+}
+
+@mixin alignSelf($string){
+    -webkit-align-self: $string;
+  align-self: $string;
+}
+
+@mixin flexGrow($integer){
+    -moz-box-flex: $integer;
+    -webkit-flex: $integer;
+    -moz-flex: $integer;
+    -ms-flex: $integer;
+  flex: $integer;
+}
+
+
+/* Clearfix*/
+%clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+
+/*Position*/
+
+@mixin position($position, $args: ()) {
+  $offsets: top right bottom left;
+  position: $position;
+
+  @each $offset in $offsets {
+    // Doing the magic trick
+    // All this code happens inside the loop
+    $index: index($args, $offset);
+
+    // If offset is found in the list
+    @if $index {
+
+      // If it is found at last position
+      @if $index == length($args) {
+        #{$offset}: 0;
+      }
+
+        // If it is followed by a value
+      @else {
+        $next: nth($args, $index + 1);
+
+        // If the next value is value length
+        @if is-valid-length($next) {
+          #{$offset}: $next;
+        }
+
+          // If the next value is another offset
+        @else if index($offsets, $next) {
+          #{$offset}: 0;
+        }
+
+          // If it is invalid
+        @else {
+          @warn "Invalid value `#{$next}` for offset `#{$offset}`.";
+        }
+      }
+    }
+  }
+}
+
+
+
+/*Positioning helpers*/
+@mixin absolute($args: ()) {
+  @include position(absolute, $args);
+}
+
+@mixin fixed($args: ()) {
+  @include position(fixed, $args);
+}
+
+@mixin relative($args: ()) {
+  @include position(relative, $args);
+}
+
+@mixin absCenter{
+  @include absolute(top 50% left 50%);
+  @include translate(-50%,-50%);
+}
+
+
+
+/*Keyframes*/
+@mixin keyframes($name) {
+  @-webkit-keyframes #{$name} {
+    @content;
+  }
+
+  @-moz-keyframes #{$name} {
+    @content;
+  }
+
+  @keyframes #{$name} {
+    @content;
+  }
+}
+
+
+
+
+/*Animations*/
+@mixin animation($name, $duration: 1000ms, $iterations: infinite, $timing-function: ease, $delay: 0ms, $animation-fill-mode: forwards, $animation-direction: alternate) {
+  // There is a FF bug that requires all time values to have units, even 0 !!!!!!
+  -webkit-animation: $name $duration $iterations $timing-function $delay $animation-fill-mode $animation-direction;
+  -moz-animation: $name $duration $iterations $timing-function $delay $animation-fill-mode $animation-direction;
+  -o-animation: $name $duration $iterations $timing-function $delay $animation-fill-mode $animation-direction;
+  animation: $name $duration $iterations $timing-function $delay $animation-fill-mode $animation-direction;
+}
+
+// Gradients
+@mixin gradient($start-color, $end-color, $orientation) {
+  background: $start-color;
+  @if $orientation == 'vertical' {
+    background: -webkit-linear-gradient(top, $start-color, $end-color);
+    background: linear-gradient(to bottom, $start-color, $end-color);
+  } @else if $orientation == 'horizontal' {
+    background: -webkit-linear-gradient(left, $start-color, $end-color);
+    background: linear-gradient(to right, $start-color, $end-color);
+  } @else {
+    //notre type spécifique d elineaer gradient pour definima
+    background: -webkit-linear-gradient($orientation, $start-color, $end-color);
+    background: linear-gradient($orientation, $start-color, $end-color);
+    //background: -webkit-radial-gradient(center, ellipse cover, $start-color, $end-color);
+    //background: radial-gradient(ellipse at center, $start-color, $end-color);
+  }
+}
+
+/* Usage
+@include gradient(#07c, #06f, vertical);
+*/
+
+/// Background Horizontal
+/// @param {Color} $startColor [#3C3C3C] - Start Color
+/// @param {Color} $endColor [#999999] - End Color
+
+@mixin background-horizontal($startColor: #3C3C3C, $endColor: #999999) {
+  background-color: $startColor;
+  background-image: -webkit-gradient(linear, left top, right top, from($startColor), to($endColor));
+  background-image: -webkit-linear-gradient(left, $startColor, $endColor);
+  background-image:    -moz-linear-gradient(left, $startColor, $endColor);
+  background-image:     -ms-linear-gradient(left, $startColor, $endColor);
+  background-image:      -o-linear-gradient(left, $startColor, $endColor);
+  background-image:         linear-gradient(left, $startColor, $endColor);
+  filter:            progid:DXImageTransform.Microsoft.gradient(startColorStr='#{$startColor}', endColorStr='#{$endColor}', gradientType='1');
+}
+
+
+
+// Vertical align
+@mixin ghostVerticalAlign(){
+  &:before {
+    content: '';
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%; width: .1px;
+  }
+}
+
+// Uppercase
+%up {
+  text-transform: uppercase;
+}
+
+// Transform
+@mixin transform($string) {
+  -ms-transform: $string;
+  -webkit-transform: $string;
+  transform: $string;
+}
+
+// Rotation
+@mixin rotate($rotation) {
+  -ms-transform: rotate($rotation);
+  -webkit-transform: rotate($rotation);
+  transform: rotate($rotation);
+}
+
+// Scale
+@mixin scale($scale) {
+  -ms-transform: scale($scale);
+  -webkit-transform: scale($scale);
+  transform: scale($scale);
+}
+
+// Scale
+@mixin scaleX($scale) {
+  -ms-transform: scaleX($scale);
+  -webkit-transform: scaleX($scale);
+  transform: scaleX($scale);
+}
+
+// Scale
+@mixin scaleY($scale) {
+  -ms-transform: scaleY($scale);
+  -webkit-transform: scaleY($scale);
+  transform: scaleY($scale);
+}
+
+// Skew
+@mixin skew($skew) {
+  -webkit-transform-style: preserve-3d;
+  -webkit-backface-visibility: hidden;
+
+  -webkit-transform: skewY($y) translateZ(0);
+  -ms-transform: skewY($y) translateZ(0);
+  transform: skewY($y) translateZ(0);
+}
+
+@mixin skewX($x) {
+  -webkit-transform-style: preserve-3d;
+  -webkit-backface-visibility: hidden;
+
+  -webkit-transform: skewY($y) translateZ(0);
+  -ms-transform: skewY($y) translateZ(0);
+  transform: skewY($y) translateZ(0);
+}
+
+@mixin skewY($y) {
+  -webkit-transform-style: preserve-3d;
+  -webkit-backface-visibility: hidden;
+
+  -webkit-transform: skewY($y) translateZ(0);
+  -ms-transform: skewY($y) translateZ(0);
+  transform: skewY($y) translateZ(0);
+}
+
+// Translate
+@mixin translate($x,$y) {
+  -webkit-transform: translate($x, $y);
+  -ms-transform: translate($x, $y);
+  transform: translate($x, $y);
+}
+
+@mixin translateX($x) {
+  -webkit-transform: translateX($x);
+  -ms-transform: translateX($x);
+  transform: translateX($x);
+}
+
+@mixin translateY($y) {
+  -webkit-transform: translateY($y);
+  -ms-transform: translateY($y);
+  transform: translateY($y);
+}
+
+// Translate 3d
+@mixin translate3d($x, $y, $z) {
+  -webkit-transform: translate3d($x, $y, $z);
+  -moz-transform: translate3d($x, $y, $z);
+  -o-transform: translate3d($x, $y, $z);
+  transform: translate3d($x, $y, $z);
+}
+
+
+// Placeholder
+@mixin placeholder {
+  ::-webkit-input-placeholder {@content}
+  :-moz-placeholder           {@content}
+  ::-moz-placeholder          {@content}
+  :-ms-input-placeholder      {@content}
+}
+
+/* Usage
+@include placeholder {
+  font-style:italic;
+  color: white;
+  font-weight:100;
+}*/
+
+
+// Size
+@mixin size($width, $height){
+  width: $width;
+  height: $height;
+}
+
+@mixin square($size){
+  @include size($size, $size);
+}
+
+
+
+

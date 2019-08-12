@@ -1,23 +1,79 @@
 	
-{% macro blockInput(form, champ, obligatoire, class, style, isrequired, afterInput) %}
+{% macro blockInput(form, champ, obligatoire, class, style, isrequired, afterInput, colLabel, colInput, icon, comment) %}
     {% form_theme form 'AdminBundle:Form:form_layout.html.twig' %}
     <div class="row form-group {% if form[champ].vars.errors|length %}has-error{%endif%}" >
-        {{ form_label(form[champ], null, {'label_attr': {'class': 'col-sm-3 control-label text-right'}}) }}
-        {% if obligatoire|default(false) %}*{% endif %}	    
-        <div class="col-sm-8">
-            <div class="">
-                {{ form_widget(form[champ], {'required': isrequired|default(form[champ].vars.required), 'attr': {'class': 'form-horizontal '~class, 'style': style|default('')}}) }} {{afterInput|default('')|raw}}	
+        {{ form_label(form[champ], null, {'label_attr': {'class': 'col-'~colLabel|default(3)~' control-label text-right'}}) }}
+        <div class="col-{{ colInput|default(8) }}">
+            <div class="input-group">
+                {% if icon %}
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">{{ icon|raw }}</span>
+                    </div>
+                {% endif %}
+                {{ form_widget(form[champ], {'required': isrequired|default(form[champ].vars.required), 'attr': {'class': 'form-control '~class, 'style': style|default('')}}) }} {{afterInput|default('')|raw}}
                 <div class="erreur">{{ form_errors(form[champ]) }}</div>   
-            </div>     
+            </div>
+            {% if comment %}
+                <small class="form-text text-muted">{{ comment }}</small>
+            {% endif %}
+
         </div>
     </div>
 {% endmacro %}
-{% macro blockInputPrototype(form, champ, obligatoire) %}
+
+
+{% macro blockInputLabelTop(form, champ, obligatoire, class, style, isrequired, afterInput, colLabel, colInput, icon, comment) %}
     {% form_theme form 'AdminBundle:Form:form_layout.html.twig' %}
     <div class="row form-group {% if form[champ].vars.errors|length %}has-error{%endif%}" >
-        {{ form_label(form[champ], null, {'label_attr': {'class': 'col-sm-3 control-label text-right'}}) }}
-        {% if obligatoire|default(false) %}*{% endif %}
-        <div class="col-sm-8">
+        {{ form_label(form[champ], null, {'label_attr': {'class': 'col-'~colLabel|default(12)~' control-label label-align-left '}}) }}
+        <div class="col-{{ colInput|default(12) }}">
+            <div class="input-group">
+                {% if icon %}
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">{{ icon|raw }}</span>
+                    </div>
+                {% endif %}
+                {{ form_widget(form[champ], {'required': isrequired|default(form[champ].vars.required), 'attr': {'class': 'form-control '~class, 'style': style|default('')}}) }} {{afterInput|default('')|raw}}
+                <div class="erreur">{{ form_errors(form[champ]) }}</div>
+            </div>
+            {% if comment %}
+                <small class="form-text text-muted">{{ comment }}</small>
+            {% endif %}
+
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro blockInputSummernote(form, champ, class, style, isrequired, colLabel, colInput, comment) %}
+    {% form_theme form 'AdminBundle:Form:form_layout.html.twig' %}
+    <div class="row form-group {% if form[champ].vars.errors|length %}has-error{%endif%}" >
+        {{ form_label(form[champ], null, {'label_attr': {'class': 'col-'~colLabel|default(12)~' control-label label-align-left'}}) }}
+        <div class="col-{{ colInput|default(12) }}">
+            <div class="">
+                {{ form_widget(form[champ], {'required': isrequired|default(form[champ].vars.required), 'attr': {'class': 'form-control summernote '~class, 'style': style|default('')}}) }} {{afterInput|default('')|raw}}
+                <div class="erreur">{{ form_errors(form[champ]) }}</div>
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro formSwitch(form, champ, class, colLabel, colInput) %}
+    <div class="row form-group {% if form[champ].vars.errors|length %}has-error{%endif%}" >
+        {{ form_label(form[champ], null, {'label_attr': {'class': 'col-'~colLabel|default(3)~' control-label text-right'}}) }}
+        <div class="col-{{ colInput|default(8) }}">
+            <div class="">
+                {{ form_widget(form[champ], {'required': isrequired|default(form[champ].vars.required), 'attr': {'class': 'form-horizontal switch '~class, 'style': style|default('')}}) }} {{afterInput|default('')|raw}}
+                <div class="erreur">{{ form_errors(form[champ]) }}</div>
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro blockInputPrototype(form, champ, obligatoire, colLabel, colInput) %}
+    {% form_theme form 'AdminBundle:Form:form_layout.html.twig' %}
+    <div class="row form-group {% if form[champ].vars.errors|length %}has-error{%endif%}" >
+        {{ form_label(form[champ], null, {'label_attr': {'class': 'col-'~colLabel|default(3)~' control-label text-right'}}) }}
+        <div class="col-{{ colInput|default(8) }}">
             
             <div class="">
                 <ul class="{{champ}}" data-prototype="{{ form_widget(form[champ].vars.prototype)|e('html_attr') }}">
@@ -39,11 +95,11 @@
         </div>
     </div>
 {% endmacro %}
-{% macro blockInputRepeated(form, champ, obligatoire, class, style, isrequired) %}
+{% macro blockInputRepeated(form, champ, obligatoire, class, style, isrequired, colLabel, colInput) %}
     {% form_theme form 'AdminBundle:Form:form_layout.html.twig' %}
     <div class="row form-group {% if form[champ].vars.errors|length %}has-error{%endif%}" style="{{style|default('')}}">
-        {{ form_label(form[champ], null, {'label_attr': {'class': 'col-sm-3 control-label text-right'}}) }}    
-        <div class="col-sm-8">
+        {{ form_label(form[champ], null, {'label_attr': {'class': 'col-'~colLabel|default(3)~' control-label text-right'}}) }}
+        <div class="col-{{ colInput|default(8) }}">
             {% if not obligatoire|default(true) %}<i style="display: block;color: black;">Renseignez ces champs si modification du mot de passe</i>{% endif %}
             
                 {% for repeatedField in form[champ] %}
@@ -54,12 +110,11 @@
         </div>
     </div>
 {% endmacro %}
-{% macro blockInputMask(form, champ, obligatoire, class, style, isrequired, mask, placeholder) %}
+{% macro blockInputMask(form, champ, obligatoire, class, style, isrequired, mask, placeholder, colLabel, colInput) %}
     {% form_theme form 'AdminBundle:Form:form_layout.html.twig' %}
     <div class="row form-group {% if form[champ].vars.errors|length %}has-error{%endif%}">
-        {{ form_label(form[champ], null, {'label_attr': {'class': 'col-sm-3 control-label text-right'}}) }}
-        {% if obligatoire|default(false) %}*{% endif %}	    
-        <div class="col-sm-8">
+        {{ form_label(form[champ], null, {'label_attr': {'class': 'col-'~colLabel|default(3)~' control-label text-right'}}) }}
+        <div class="col-{{ colInput|default(8) }}">
             <div class="">
                 {{ form_widget(form[champ], {'required': isrequired|default(form[champ].vars.required), 'attr': {'class': 'form-horizontal '~class, 'style': style|default(''), 'data-mask': mask, 'placeholder': placeholder}}) }}	
                 <div class="erreur">{{ form_errors(form[champ]) }}</div>   

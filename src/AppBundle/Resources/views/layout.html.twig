@@ -2,10 +2,11 @@
 
 {% block stylesheets %}
 
+    <link href="{{ asset('vendor/fontawesome/css/fontawesome-all.min.css') }}" rel="stylesheet">
     <link href="{{ asset('vendor/bootstrap4/css/def-bootstrap.css') }}" type="text/css" rel="stylesheet"/>
     <link href="{{ asset('vendor/select2/select2.css') }}" type="text/css" rel="stylesheet"/>
 
-    {% stylesheets '@AppBundle/Resources/scss/app.scss' filter='scssphp' output='css/front/app.css' %}
+    {% stylesheets '@AppBundle/Resources/scss/app.scss' filter='scssphp' output='/css/front/app.css' %}
         <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
     {% endstylesheets %}
 
@@ -13,6 +14,7 @@
 
 
 {% block javascripts %}
+    <script src="{{ asset('vendor/jquery/jquery-3.3.1.min.js') }}"></script>
     <script src="{{ asset('vendor/jquery-ui/jquery-ui.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('vendor/jquery-validation/jquery.validate.js') }}"></script>
     <script type="text/javascript" src="{{ asset('vendor/jquery-validation/localization/messages_fr.js') }}"></script>
@@ -25,6 +27,11 @@
 
 {% block header %}{% endblock %}
 
-{% block content %}{% endblock %}
+{% block content %}
+    <main>
+        {% block container_general %} {% endblock %}
+    </main>
+{% endblock %}
+
 
 {% block footer %}{% endblock %}

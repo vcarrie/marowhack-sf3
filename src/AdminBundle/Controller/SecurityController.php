@@ -1,6 +1,6 @@
 <?php
 
-namespace AdminBundle\Controller\Admin;
+namespace AdminBundle\Controller;
 
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Security;
@@ -55,7 +55,7 @@ class SecurityController extends BaseSecurityController
             ? $this->tokenManager->getToken('authenticate')->getValue()
             : null;
 
-        return $this->render('@Admin/Admin/Security/login.html.twig', array(
+        return $this->render('@FOSUser/Security/login.html.twig', array(
             'last_username' => $lastUsername,
             'error' => $error,
             'csrf_token' => $csrfToken,

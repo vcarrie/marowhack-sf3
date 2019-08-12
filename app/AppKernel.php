@@ -1,6 +1,5 @@
 <?php
 
-use Definima\MediaBundle\DefinimaMediaBundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
@@ -19,14 +18,15 @@ class AppKernel extends Kernel {
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new PUGX\MultiUserBundle\PUGXMultiUserBundle(),
+            new Burgov\Bundle\KeyValueFormBundle\BurgovKeyValueFormBundle(),
+            new Symfony\Cmf\Bundle\SeoBundle\CmfSeoBundle(),
+            new Sonata\SeoBundle\SonataSeoBundle(),
             new FOS\UserBundle\FOSUserBundle(),
 
             new AppBundle\AppBundle(),
             new AdminBundle\AdminBundle(),
-            new Definima\MediaBundle\DefinimaMediaBundle(),
+            new MediaBundle\MediaBundle(),
             
-            new Sonata\SeoBundle\SonataSeoBundle(),
-            new Symfony\Cmf\Bundle\SeoBundle\CmfSeoBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

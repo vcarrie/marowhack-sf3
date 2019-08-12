@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "582249e99d65d7ba6630ea21e9cd4d73",
+    "content-hash": "ba3042d376cc9324344793a7fe2cfcd6",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -49,6 +49,45 @@
                 "transliterator"
             ],
             "time": "2017-04-04T11:38:05+00:00"
+        },
+        {
+            "name": "burgov/key-value-form-bundle",
+            "version": "1.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Burgov/KeyValueFormBundle.git",
+                "reference": "7d2b6e6d382522d752a573bb490c61fa40559e61"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Burgov/KeyValueFormBundle/zipball/7d2b6e6d382522d752a573bb490c61fa40559e61",
+                "reference": "7d2b6e6d382522d752a573bb490c61fa40559e61",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3",
+                "symfony/form": "^2.3|^3.0|^4.0"
+            },
+            "conflict": {
+                "symfony/form": "2.8.1"
+            },
+            "type": "bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Burgov\\Bundle\\KeyValueFormBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A form type for managing key-value pairs",
+            "time": "2019-07-18T13:01:43+00:00"
         },
         {
             "name": "composer/ca-bundle",

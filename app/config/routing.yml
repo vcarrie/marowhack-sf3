@@ -6,9 +6,9 @@ app:
     resource: "@AppBundle/Resources/config/routing.yml"
     prefix:   /
 
+media:
+    resource: "@MediaBundle/Resources/config/routing.yml"
+    prefix:   /
+
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
-
-sitemaps:
-    prefix: /sitemaps
-    resource: "@CmfSeoBundle/Resources/config/routing/sitemap.xml"

@@ -1,0 +1,13 @@
+#Connexion
+
+admin_login:
+    path:     /login
+    defaults: { _controller: AdminBundle:Security:login }
+
+admin_login_check:
+    path:     /login-check
+    defaults: { _controller: AdminBundle:Security:check }
+
+admin_logout:
+    path:   /logout
+    defaults: { _controller: AdminBundle:Security:logout }

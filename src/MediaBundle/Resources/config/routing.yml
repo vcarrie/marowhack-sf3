@@ -1,0 +1,34 @@
+media_ajax_icon:
+    path:     /ajax-icon/
+    defaults: { _controller: MediaBundle:Ajax:ajaxIcon, filename: null }
+    methods:  GET
+
+media_upload:
+    path:     /upload/
+    defaults: { _controller: MediaBundle:Media:uploadFile }
+    methods:  [GET, POST]
+
+media_download:
+    path:     /media/file/{path}
+    defaults: { _controller: MediaBundle:Media:binaryFileResponse }
+    methods:  GET 
+
+
+
+
+
+
+admin_media_ajax_icon:
+    path:     /admin/ajax-icon/
+    defaults: { _controller: MediaBundle:Ajax:ajaxIcon, filename: null }
+    methods:  GET
+admin_media_upload:
+    path:     /admin/upload/
+    defaults: { _controller: MediaBundle:Media:uploadFile }
+    methods:  [GET, POST]
+
+admin_media_download:
+    path:     /admin/media/file/{path}
+    defaults: { _controller: MediaBundle:Media:binaryFileResponse }
+    methods:  GET 
+    

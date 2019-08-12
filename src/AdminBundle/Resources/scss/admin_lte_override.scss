@@ -1,0 +1,78 @@
+
+.skin-yellow .main-header .logo {
+    background-color: $colorProject;
+}
+
+.skin-yellow .main-header.navbar {
+    background-color: $colorProject;
+}
+
+.skin-yellow .main-header.navbar a.nav-link {
+    color: #fff !important;
+}
+
+.nav-tabs-custom > .tab-content {
+    padding: 20px 40px;
+}
+
+.sidebar-dark-warning .nav-sidebar > .nav-item > .nav-link.active{
+    background-color: $colorProject;
+    color: #fff !important;
+}
+
+.form-horizontal .control-label.label-align-left{
+    text-align: left;
+}
+
+.bg-project{
+    background-color: $colorProject;
+    color: #fff !important;
+}
+
+.bootstrap-switch-handle-on.bootstrap-switch-primary{
+    background: $colorProject !important;
+}
+
+
+/* Alert messages */
+
+.alert-success{
+    background-color: $green !important;
+    border-color: $green;
+}
+.alert-danger{
+    background-color: $danger !important;
+    border-color: $danger;
+}
+.alert-warning{
+    background-color: $yellow !important;
+    border-color: $yellow;
+}
+
+
+.btn-danger{
+    background-color: $danger;
+    border-color: $danger;
+    &:hover{
+        background-color: #ab5656;
+        border-color: #ab5656;
+    }
+}
+
+.btn-warning{
+    background-color: $yellow;
+    border-color: $yellow;
+}
+
+.btn-primary{
+    background-color: $colorProject;
+    border-color: $colorProject;
+    &:hover{
+        background-color: #3c91c2;
+        border-color: #3c91c2;
+    }
+}
+
+.logo-go-to-site{
+    max-width: 15px !important;
+}

@@ -20,9 +20,7 @@ class AdminController extends Controller {
         $admins = $em->getRepository('AdminBundle:Admin')->findBy(array('isDeleted' => 0));
         $deleteForm = $this->createDeleteForm(0);
 
-        $bundles = DashboardController::get_menus();
         return $this->render('AdminBundle:Admin:index.html.twig', array(
-                    'menus' => $bundles,
                     'active' => array('Administration', 'Liste des administrateurs'),
                     'admins' => $admins,
                     'delete_form' => $deleteForm->createView(),
@@ -58,10 +56,7 @@ class AdminController extends Controller {
             );
             return $this->redirectToRoute('admin_gestion_admin_index', array('id' => $admin->getId()));
         }
-        $bundles = DashboardController::get_menus();
-
         return $this->render('AdminBundle:Admin:new.html.twig', array(
-                    'menus' => $bundles,
                     'active' => array('Administration', 'Liste des administrateurs'),
                     'admin' => $admin,
                     'form' => $form->createView(),
@@ -104,9 +99,7 @@ class AdminController extends Controller {
             return $this->redirectToRoute('admin_gestion_admin_edit', array('id' => $admin->getId()));
         }
 
-        $bundles = DashboardController::get_menus();
         return $this->render('AdminBundle:Admin:edit.html.twig', array(
-                    'menus' => $bundles,
                     'active' => array('Administration', 'Liste des administrateurs'),
                     'admin' => $admin,
                     'form' => $editForm->createView(),
@@ -147,11 +140,9 @@ class AdminController extends Controller {
 
     public function consoleAction() {
 
-        $bundles = DashboardController::get_menus();
         $txt = '<span style="background-color: black; color: white"><h4>Bienvenue ' . $this->getUSer()->getPrenom() . ' ! </h4><br>Dossier de travail : "' . $this->get('kernel')->getRootDir() . '/.."</span>';
 
         return $this->render('AdminBundle:Admin:console.html.twig', array(
-                    'menus' => $bundles,
                     'active' => array('Administration', 'Console'),
                     'welcome' => $txt
         ));

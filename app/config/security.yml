@@ -17,7 +17,7 @@ security:
             entity: { class: AdminBundle:Admin, property: username }
         admin_provider:
             chain:
-                providers: [admin]
+                providers: [admin, fos_userbundle]
 
     firewalls:
 
@@ -25,19 +25,9 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
-        main:
-            pattern: ^/
-            switch_user: true
-            form_login:
-                provider: fos_userbundle
-                csrf_token_generator: security.csrf.token_manager
-
-            logout:       true
-            anonymous:    true
-            access_denied_handler: AppBundle\Security\AccessDeniedHandler
-
-        admin:
-            pattern: ^/admin
+        admin_area:
+            pattern: ^/admin(.*)
+            anonymous: true
             switch_user: true
             form_login:
                 provider: admin_provider
@@ -56,7 +46,12 @@ security:
             access_denied_handler: AdminBundle\Security\AccessDeniedHandler
 
     access_control:
+        - { path: ^/bundles/*, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+
+
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/, role: ROLE_ADMIN }
+        - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY }

@@ -1,7 +1,3 @@
-admin_gestion:
-    resource: "@AdminBundle/Resources/config/routing/admin.yml"
-    prefix:   /admin/gestion
-
-admin_dashboard:
-    resource: "@AdminBundle/Resources/config/routing/dashboard.yml"
+admin_routing:
+    resource: "@AdminBundle/Resources/config/bo/routing.yml"
     prefix:   /admin

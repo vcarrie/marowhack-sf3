@@ -10,7 +10,7 @@
     <link href="{{ asset('vendor/fontawesome/css/fontawesome-all.min.css') }}" rel="stylesheet">
     <link href="{{ asset('vendor/bootstrap-switch/bootstrap-switch.min.css') }}" rel="stylesheet">
 
-    {% stylesheets '@AdminBundle/Resources/scss/admin.scss' filter='scssphp' output='css/back/admin.css' %}
+    {% stylesheets '@AdminBundle/Resources/scss/admin.scss' filter='scssphp' output='/css/back/admin.css' %}
         <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
     {% endstylesheets %}
 {% endblock %}
@@ -36,11 +36,11 @@
 
 {% block header %}{% endblock %}
 
-{% block bodyclass %}class="skin-yellow sidebar-mini"{% endblock %}
+{% block bodyclass %}skin-yellow sidebar-mini{% endblock %}
 
 {% block content %}
     <!-- layout de l'espace admin -->
-    <nav class="main-header navbar navbar-expand bg-warning navbar-light border-bottom">
+    <nav class="main-header navbar navbar-expand bg-project navbar-light border-bottom">
         <!-- Left navbar links -->
         <ul class="navbar-nav">
             <li class="nav-item">
@@ -54,6 +54,9 @@
     {% block navbarright %}{% endblock %}
 
     {% block usermenu %}
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('app_index') }}" target="_blank">Aller sur le site <img class="logo-go-to-site" src="{{ asset('bundles/app/img/logo.jpg') }}" alt="logo rcommerce"></a>
+        </li>
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
                 <i class="fa fa-fw fa-user"></i>
@@ -82,7 +85,7 @@
                     <div class="card-footer" style="padding-top: 12px;">
                         <div class="row">
                             <div class="col-sm-12">
-                                <a href="{{ url('fos_user_security_logout') }}" class="btn bg-orange btn-flat">Déconnexion</a>
+                                <a href="{{ url('admin_logout') }}" class="btn bg-orange btn-flat">Déconnexion</a>
                             </div>
                             <!-- /.col -->
                         </div>
@@ -113,7 +116,7 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 {% include 'AdminBundle::_menu.html.twig' with { active: active|default({}) } %}
 
-                {% for menu in ''|menu %}
+                {% for menu in displayMenu() %}
                     {% include menu ignore missing with { active: active|default({}) } %}
                 {% endfor %}
 

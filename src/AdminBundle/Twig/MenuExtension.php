@@ -2,14 +2,14 @@
 namespace AdminBundle\Twig;
 
 use Twig\Extension\AbstractExtension;
-use Twig\TwigFilter;
+use Twig\TwigFunction;
 
 class MenuExtension extends AbstractExtension
 {
-    public function getFilters()
+    public function getFunctions()
     {
          return array(
-            new TwigFilter('menu', array($this, 'menu')),
+            new TwigFunction('displayMenu', array($this, 'menu')),
         );
     }
 

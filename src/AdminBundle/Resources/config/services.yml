@@ -5,10 +5,21 @@ services:
     tags:
       - { name: twig.extension }
 
-  AdminBundle\Security\AccessDeniedHandler:
-    arguments: ['@security.helper', '@security.http_utils']
+  slugify.twig_extension:
+    class: AdminBundle\Twig\SlugifyExtension
+    public: false
+    arguments:
+      - "@definima.slugify"
+    tags:
+      - { name: twig.extension }
 
   twig.ansi_extension:
     class: SensioLabs\AnsiConverter\Bridge\Twig\AnsiExtension
     tags:
       - { name: twig.extension }
+
+  AdminBundle\Security\AccessDeniedHandler:
+    arguments: ['@security.helper', '@security.http_utils']
+
+  AdminBundle\Controller\SecurityController:
+    arguments: ["@security.csrf.token_manager"]

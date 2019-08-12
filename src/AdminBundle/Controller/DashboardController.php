@@ -12,10 +12,8 @@ class DashboardController extends Controller {
         
         $cr = $this->getUser();
 
-        $bundles = DashboardController::get_menus();
         return $this->render('AdminBundle:Dashboard:index.html.twig', array(
                     'cr' => $cr,
-                    'menus' => $bundles,
                     'active' => array('Tableau de bord'),
         ));
     }

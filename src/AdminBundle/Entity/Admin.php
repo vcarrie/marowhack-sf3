@@ -41,6 +41,12 @@ class Admin extends User
     private $prenom;
 
     /**
+     * @var \MediaBundle\Entity\Media $profile
+     * @ORM\Column(type="media", nullable=true)
+     */
+    private $profile;
+
+    /**
      * @return string
      */
     public function getNom()
@@ -70,6 +76,22 @@ class Admin extends User
     public function setPrenom($prenom)
     {
         $this->prenom = $prenom;
+    }
+
+    /**
+     * @return \MediaBundle\Entity\Media
+     */
+    public function getProfile()
+    {
+        return $this->profile;
+    }
+
+    /**
+     * @param \MediaBundle\Entity\Media $profile
+     */
+    public function setProfile($profile)
+    {
+        $this->profile = $profile;
     }
 
 }

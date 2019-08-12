@@ -1,0 +1,19 @@
+{% extends '@Admin/layout.html.twig' %}
+
+{% block title %}Connexion{% endblock %}
+{% block bodyclass %}class=""{% endblock %}
+
+{% block content %}
+    <div class="login-box">
+        <div class="login-logo">
+            <img src="{{ asset('bundles/app/img/logo.jpg') }}" class="img-responsive" alt="logo"><br>
+            <a href=""><b>Definima</b></a>
+        </div>
+        <!-- /.login-logo -->
+        <div>
+            {% block contentFOS %}{% endblock %}
+            <!-- /.login-card-body -->
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,22 +1,19 @@
-{% extends "App/layout.html.twig" %}
+{% extends '::layout-fos.html.twig' %}
 
-{% block title %}Espace Candidat - Mot de passe perdu{% endblock %}
-{% block bodyclass %}class="loginCandidat candidat"{% endblock %}
+{% block title %}Mot de passe perdu{% endblock %}
 
-{% block titleSite %}{% endblock %}
+{% block contentFOS %}
 
-{% block container %}
 
-    <div class="container">
-        <div class="row">
-            <div class="login-box in-center col-11 col-sm-6">
-                <div class="form-top">
-                    <h1 class="login">Mot de passe <span class="fat">perdu</span></h1>
-                </div>
-                <div class="form-bottom">
-                    {% include "FOSUserBundle:Resetting:request_content.html.twig" %}
-                </div>
-            </div>
+    <div class="login-card-body">
+        <div class="form-top">
+            <h1 class="login">Mot de passe
+                <span class="fat">oublié</span>
+            </h1>
         </div>
+        <div class="form-bottom">
+                {% include "FOSUserBundle:Resetting:request_content.html.twig" %}
+            </div>
     </div>
+
 {% endblock %}

@@ -5,3 +5,8 @@
   top: 67px;
   right: 16px;
 }
+
+
+label.required:after {
+  content: "*";
+}

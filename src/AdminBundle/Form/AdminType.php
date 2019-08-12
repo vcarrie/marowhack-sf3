@@ -2,6 +2,7 @@
 
 namespace AdminBundle\Form;
 
+use MediaBundle\Form\Type\MediaType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -37,6 +38,11 @@ class AdminType extends AbstractType {
                 )
                 ->add('nom')
                 ->add('prenom')
+                ->add('profile', MediaType::class, array(
+                        'label' => 'Photo de profil',
+                        'required' => false,
+                        'conf' => 'admin_profil')
+                )
                 ->add('submit', SubmitType::class)
         ;
     }

@@ -1,0 +1,9 @@
+admin_gestion:
+    resource: "@AdminBundle/Resources/config/bo/admin.yml"
+    prefix:   /gestion
+
+admin_login_config:
+    resource: "@AdminBundle/Resources/config/bo/login.yml"
+
+admin_dashboard:
+    resource: "@AdminBundle/Resources/config/bo/dashboard.yml"

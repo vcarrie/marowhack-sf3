@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <title>Definima</title>
+    <style type="text/css">
+        body, html {
+            background-color: #f7f7f7;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+<table align="center" width="600" cellspacing="0" style="border-spacing:0; background:#fff; margin:15px auto;">
+    <tr>
+        <td style="background:#fff;padding:20px; border-bottom:3px solid #f7f7f7;">
+            <img src="{{ absolute_url(asset('bundles/app/assets/img/mail/logo.png')) }}" alt="Label Dent" width="" height="" style="display: block; max-width:50%; margin: auto;"/>
+        </td>
+    </tr>
+    <tr>
+        <td style="padding:10px 0; color:#333;">
+            <table style="width:100%">
+                <tbody>
+
+                {% block body %}{% endblock %}
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table cellpadding="4" cellspacing="0" align="center" style="border-spacing: 0; width:600px; margin: 0 auto; background:#002e49; color:#ffffff; padding:10px;">
+                <tr>
+                    <td style="text-align:left;width:16px;">
+                        <img src="{{ absolute_url(asset('bundles/app/assets/img/mail/mail.png')) }}">
+                    </td>
+                    <td>
+                        <a href="mailto:contact@labeldent.fr" style="color: #ffffff;text-decoration:none;">contact@definima.com</a>
+                    </td>
+                    <td style="width: 240px;"></td>
+                    <td style="text-align:right; width:16px;">
+                        <img src="{{ absolute_url(asset('bundles/app/assets/img/mail/site.png')) }}">
+                    </td>
+                    <td style="text-align:right; width: 78px;">
+                        <a href="#" style="color: #ffffff;text-decoration: none;">Definima</a>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

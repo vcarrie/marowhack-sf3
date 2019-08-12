@@ -1,3 +1,16 @@
 services:
+    email.send:
+        class: 'AppBundle\Helpers\EmailSend'
+        arguments: ['@mailer', '@service_container']
+
     AppBundle\Security\AccessDeniedHandler:
-        arguments: ['@security.helper', '@security.http_utils']     
+        arguments: ['@security.helper', '@security.http_utils']
+
+    app.user_provider.username_email:
+        class: AppBundle\Security\UserProvider
+        arguments: ['@fos_user.user_manager']
+        public: false
+
+    definima.slugify:
+        class: AppBundle\Services\Def_Slugify
+        arguments: []
