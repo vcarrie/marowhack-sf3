@@ -106,6 +106,19 @@ class AdminController extends Controller {
         ));
     }
 
+
+    /**
+     * Displays a form to edit an existing admin entity.
+     *
+     */
+    public function showAction(Request $request, Admin $admin) {
+
+        return $this->render('AdminBundle:Admin:show.html.twig', array(
+                    'active' => array('Administration', 'Liste des administrateurs'),
+                    'admin' => $admin,
+        ));
+    }
+
     /**
      * Deletes a admin entity.
      *

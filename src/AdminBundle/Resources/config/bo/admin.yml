@@ -13,6 +13,11 @@ admin_gestion_admin_edit:
     defaults: { _controller: "AdminBundle:Admin:edit" }
     methods:  [GET, POST]
 
+admin_gestion_admin_show:
+    path:     /{id}/show
+    defaults: { _controller: "AdminBundle:Admin:show" }
+    methods:  [GET, POST]
+
 admin_gestion_admin_delete:
     path:     /{id}/delete
     defaults: { _controller: "AdminBundle:Admin:delete" }

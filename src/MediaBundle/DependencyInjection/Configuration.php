@@ -25,6 +25,7 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('web_dir')
                     ->defaultValue('web')
                 ->end()
+                ->scalarNode('use_external_domain')->defaultValue(false)->end()
                 ->scalarNode('domain')->end()
                 ->arrayNode('conf')
                     ->prototype('array')

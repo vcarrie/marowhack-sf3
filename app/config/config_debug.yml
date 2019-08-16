@@ -1,6 +1,17 @@
 imports:
     - { resource: config_dev.yml }
 
+parameters:
+    database_host: 127.0.0.1
+    database_port: null
+    database_name: media_receiver
+    database_user: valentin
+    database_password: definima233
 
 media:
-    domain: "socle-sf3.local"
+    use_external_domain: true
+    domain: "%definima_media_domain%"
+
+twig:
+    globals:
+        external_domain: "%definima_media_domain%"

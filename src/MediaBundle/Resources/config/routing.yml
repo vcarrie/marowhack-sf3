@@ -9,8 +9,8 @@ media_upload:
     methods:  [GET, POST, OPTIONS]
 
 media_download:
-    path:     /media/file/{path}
-    defaults: { _controller: MediaBundle:Media:binaryFileResponse }
+    path:     /media/file/{path}/{version}
+    defaults: { _controller: MediaBundle:Media:binaryFileResponse, version: null }
     methods:  GET 
 
 

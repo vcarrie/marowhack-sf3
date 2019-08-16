@@ -25,6 +25,7 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 /**
@@ -55,8 +56,7 @@ class MediaController extends Controller
             'accept_file_types' => $fileManager->getRegex(),
             'print_response' => false,
         ];
-        
-        
+
         if (isset($fileManager->getConfiguration()['upload'])) {
             $options = $options + $fileManager->getConfiguration()['upload'];
         }
@@ -103,13 +103,24 @@ class MediaController extends Controller
      * @return BinaryFileResponse
      * @throws \Exception
      */
-    public function binaryFileResponseAction(Request $request, $path)
+    public function binaryFileResponseAction(Request $request, $path, $version)
     {
         $pathParams = explode('__', $path);
-        $url = $this->getBasePath(array('conf' => $pathParams[0]))['dir'] . DIRECTORY_SEPARATOR . $pathParams[1];
+
+        $basePath = $this->getBasePath(array('conf' => $pathParams[0]))['dir'];
+        $file = $pathParams[1];
+
+        $url = $basePath;
+
+        if($version){
+            $url .= DIRECTORY_SEPARATOR . $version;
+        }
+
+        $url .= DIRECTORY_SEPARATOR . $file;
+
         $path_parts = pathinfo($url);
-        
-        return $this->file($url, $pathParams[2].'.'.$path_parts['extension']);        
+
+        return $this->file($url, $pathParams[2].'.'.$path_parts['extension'], ResponseHeaderBag::DISPOSITION_INLINE);
     }
 
     /**

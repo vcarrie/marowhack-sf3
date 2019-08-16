@@ -6,7 +6,6 @@ use MediaBundle\Helpers\FileManager;
 use SplFileInfo;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\Asset\Packages;
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Security\Core\Security;
 
 class FileTypeService
@@ -43,10 +42,15 @@ class FileTypeService
 
     public function preview(FileManager $fileManager, SplFileInfo $file)
     {
+        $domain = '';
+        if ($this->configuration['use_external_domain']) {
+            $domain = $this->configuration['domain'];
+        }
+
         if ($fileManager->getImagePath()) {
             $filePath = htmlentities($fileManager->getImagePath().rawurlencode($file->getFilename()));
         } else {
-            $filePath = $this->router->generate('media_file', array_merge($fileManager->getQueryParameters(), ['fileName' => rawurlencode($file->getFilename())]));
+            $filePath = $domain.$this->router->generate('media_file', array_merge($fileManager->getQueryParameters(), ['fileName' => rawurlencode($file->getFilename())]));
         }
         $extension = $file->getExtension();
         $type = $file->getType();
@@ -56,7 +60,7 @@ class FileTypeService
 
             return $fileIcon;
         } elseif ($type === 'dir') {
-            $href = $this->router->generate('media', array_merge($fileManager->getQueryParameters(), ['route' => $fileManager->getRoute().DIRECTORY_SEPARATOR.rawurlencode($file->getFilename())]));
+            $href = $domain.$this->router->generate('media', array_merge($fileManager->getQueryParameters(), ['route' => $fileManager->getRoute().DIRECTORY_SEPARATOR.rawurlencode($file->getFilename())]));
 
             return [
                 'path' => $filePath,
@@ -97,13 +101,11 @@ class FileTypeService
             $domain = $this->configuration['domain'];
         }
 
-        dump($domain.$this->router->generate($route, array('path' => $conf.'__'.basename($filePath))).'__'.strtolower(preg_replace("/[A-Z]+/", "_$0", $nom)));
-
         $link = '&nbsp;Aucun fichier...';
         if($filePath) {
             $link = '
             <div class="download-file">
-            <a href="http://'.$domain.$this->router->generate($route, array('path' => $conf.'__'.basename($filePath))).'__'.strtolower(preg_replace("/[A-Z]+/", "_$0", $nom)).'" >
+            <a href="'.$domain.$this->router->generate($route, array('path' => $conf.'__'.basename($filePath))).'__'.strtolower(preg_replace("/[A-Z]+/", "_$0", $nom)).'" >
             <i class="fas fa-download"></i>
             </a></div>';
         }
@@ -113,7 +115,7 @@ class FileTypeService
             case preg_match('/(gif|png|jpe?g|svg)$/i', $extension):
             return [
                 'path' => $filePath,
-                'html' => "<div class='preview-capsule'><img src=\"".$this->router->generate($route, array('path' => $conf.'__'.basename($filePath))).'__'.strtolower(preg_replace("/[A-Z]+/", "_$0", $nom))."\" class='img-responsive'></div>".$link,
+                'html' => "<div class='preview-capsule'><img src=\"".$domain.$this->router->generate($route, array('path' => $conf.'__'.basename($filePath))).'__'.strtolower(preg_replace("/[A-Z]+/", "_$0", $nom))."\" class='img-responsive'></div>".$link,
             ];
             case preg_match('/(mp4|ogg|webm)$/i', $extension):
                 $fa = 'fa-file-video';

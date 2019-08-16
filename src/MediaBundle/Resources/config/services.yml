@@ -17,3 +17,10 @@ services:
             - { name: twig.extension }
         arguments: ['@router']
         public: true
+
+    generate_media_link_extension:
+        class: MediaBundle\Twig\GenerateMediaLinkExtension
+        tags:
+            - { name: twig.extension }
+        arguments: ['@router', '%definima_media%']
+        public: true
