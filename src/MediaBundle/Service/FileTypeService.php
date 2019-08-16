@@ -6,6 +6,7 @@ use MediaBundle\Helpers\FileManager;
 use SplFileInfo;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\Asset\Packages;
+use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Security\Core\Security;
 
 class FileTypeService
@@ -25,16 +26,19 @@ class FileTypeService
      */
     private $security;
 
+    private $configuration;
+
     /**
      * FileTypeService constructor.
      *
      * @param Router   $router
      * @param Packages $packages
      */
-    public function __construct(Router $router, Security $security)
+    public function __construct(Router $router, Security $security, $configuration)
     {
         $this->security = $security;
         $this->router = $router;
+        $this->configuration = $configuration;
     }
 
     public function preview(FileManager $fileManager, SplFileInfo $file)
@@ -87,16 +91,19 @@ class FileTypeService
             $extension = pathinfo($filePathTmp, PATHINFO_EXTENSION);
         }
 
+        $domain = '';
         $route = 'media_download';
-//        if ($this->security->isGranted('ROLE_CLIENT')) {
-//            $route = 'admin_media_download';
-//        }
+        if (isset($this->configuration['domain'])) {
+            $domain = $this->configuration['domain'];
+        }
+
+        dump($domain.$this->router->generate($route, array('path' => $conf.'__'.basename($filePath))).'__'.strtolower(preg_replace("/[A-Z]+/", "_$0", $nom)));
 
         $link = '&nbsp;Aucun fichier...';
         if($filePath) {
             $link = '
             <div class="download-file">
-            <a href="'.$this->router->generate($route, array('path' => $conf.'__'.basename($filePath))).'__'.strtolower(preg_replace("/[A-Z]+/", "_$0", $nom)).'" >
+            <a href="http://'.$domain.$this->router->generate($route, array('path' => $conf.'__'.basename($filePath))).'__'.strtolower(preg_replace("/[A-Z]+/", "_$0", $nom)).'" >
             <i class="fas fa-download"></i>
             </a></div>';
         }

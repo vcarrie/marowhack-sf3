@@ -6,7 +6,7 @@ media_ajax_icon:
 media_upload:
     path:     /upload/
     defaults: { _controller: MediaBundle:Media:uploadFile }
-    methods:  [GET, POST]
+    methods:  [GET, POST, OPTIONS]
 
 media_download:
     path:     /media/file/{path}
@@ -25,7 +25,7 @@ admin_media_ajax_icon:
 admin_media_upload:
     path:     /admin/upload/
     defaults: { _controller: MediaBundle:Media:uploadFile }
-    methods:  [GET, POST]
+    methods:  [GET, POST, OPTIONS]
 
 admin_media_download:
     path:     /admin/media/file/{path}

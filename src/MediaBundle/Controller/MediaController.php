@@ -68,25 +68,32 @@ class MediaController extends Controller
 
         $response = $uploadHandler->response;
         $retour = array();
+        if(isset($response['files'])){
 
-        foreach ($response['files'] as &$file) {
-            if (isset($file->error)) {
-                $file->error = $this->get('translator')->trans($file->error);
-                $retour['files'][] = array('name' => $file->name, 'nom' => strtolower(preg_replace("/[A-Z]+/", "_$0", $queryParameters['nom'])), 'size' => $file->size, 'type' => $file->type, "error" => $file->error);
-            }else{
-                $retour['files'][] = array('conf' => $queryParameters['conf'], 'url' => $file->url, 'name' => $file->name, 'nom' => strtolower(preg_replace("/[A-Z]+/", "_$0", $queryParameters['nom'])), 'size' => $file->size, 'type' => $file->type);
+            foreach ($response['files'] as &$file) {
+                if (isset($file->error)) {
+                    $file->error = $this->get('translator')->trans($file->error);
+                    $retour['files'][] = array('name' => $file->name, 'nom' => strtolower(preg_replace("/[A-Z]+/", "_$0", $queryParameters['nom'])), 'size' => $file->size, 'type' => $file->type, "error" => $file->error);
+                }else{
+                    $retour['files'][] = array('conf' => $queryParameters['conf'], 'url' => $file->url, 'name' => $file->name, 'nom' => strtolower(preg_replace("/[A-Z]+/", "_$0", $queryParameters['nom'])), 'size' => $file->size, 'type' => $file->type);
+                }
+
+                if (!$fileManager->getImagePath()) {
+                    $file->url = $this->generateUrl('media_file', array_merge($fileManager->getQueryParameters(), ['fileName' => $file->url]));
+                }
+
             }
 
+            $this->dispatch(FileManagerEvents::POST_UPDATE, ['response' => &$response]);
+            $responseHttp = new JsonResponse($retour);
 
-            if (!$fileManager->getImagePath()) {
-                $file->url = $this->generateUrl('media_file', array_merge($fileManager->getQueryParameters(), ['fileName' => $file->url]));
-            }
-
+        }else{
+            $responseHttp = new JsonResponse();
+            $responseHttp->setStatusCode(JsonResponse::HTTP_NO_CONTENT);
         }
 
-        $this->dispatch(FileManagerEvents::POST_UPDATE, ['response' => &$response]);
 
-        return new JsonResponse($retour);
+        return $responseHttp;
     }
 
     /**

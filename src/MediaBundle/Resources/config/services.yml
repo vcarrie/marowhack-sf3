@@ -8,7 +8,7 @@ services:
 
     file_type_service:
         class: MediaBundle\Service\FileTypeService
-        arguments: ['@router', '@security.helper']
+        arguments: ['@router', '@security.helper', '%definima_media%']
         public: true
 
     order_extension:

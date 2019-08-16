@@ -14,6 +14,9 @@ class Media implements JsonSerializable
     /** @var string */
     private $alt;
 
+    /** @var string */
+    private $name;
+
     /**
      * @return string
      */
@@ -53,7 +56,8 @@ class Media implements JsonSerializable
     {
         return [
             'path' => $this->path,
-            'alt' => $this->alt
+            'alt' => $this->alt,
+            'name' => $this->name
         ];
     }
 
@@ -72,6 +76,22 @@ class Media implements JsonSerializable
     public function __toString()
     {
         return $this->path;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
     }
 
 }
