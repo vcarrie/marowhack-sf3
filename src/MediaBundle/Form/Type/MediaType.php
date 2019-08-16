@@ -27,6 +27,14 @@ class MediaType extends AbstractType
             ->add('alt', TextType::class, [
                 'required' => false,
                 'attr' => ['placeholder' => 'definima.media.alt.placeholder']
+            ])
+            ->add('conf', TextType::class, [
+                'required' => false,
+                'attr' => ['style' => 'opacity: 0;top: 0;right:0;position: absolute;'],
+            ])
+            ->add('name', TextType::class, [
+                'required' => false,
+                'attr' => ['style' => 'opacity: 0;top: 0;right:0;position: absolute;'],
             ]);
     }
 

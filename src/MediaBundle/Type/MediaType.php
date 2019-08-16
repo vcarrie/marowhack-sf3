@@ -44,6 +44,12 @@ class MediaType extends JsonArrayType
         if (isset($json['path'])) {
             $res->setPath($json['path']);
         }
+        if (isset($json['conf'])) {
+            $res->setConf($json['conf']);
+        }
+        if (isset($json['name'])) {
+            $res->setName($json['name']);
+        }
         return $res;
     }
 
