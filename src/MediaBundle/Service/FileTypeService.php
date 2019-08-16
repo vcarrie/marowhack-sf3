@@ -6,7 +6,6 @@ use MediaBundle\Helpers\FileManager;
 use SplFileInfo;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\Asset\Packages;
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Security\Core\Security;
 
 class FileTypeService

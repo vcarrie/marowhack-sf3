@@ -56,7 +56,7 @@ class MediaController extends Controller
             'accept_file_types' => $fileManager->getRegex(),
             'print_response' => false,
         ];
-        
+
         if (isset($fileManager->getConfiguration()['upload'])) {
             $options = $options + $fileManager->getConfiguration()['upload'];
         }
@@ -68,8 +68,8 @@ class MediaController extends Controller
 
         $response = $uploadHandler->response;
         $retour = array();
-
         if(isset($response['files'])){
+
             foreach ($response['files'] as &$file) {
                 if (isset($file->error)) {
                     $file->error = $this->get('translator')->trans($file->error);
@@ -78,17 +78,22 @@ class MediaController extends Controller
                     $retour['files'][] = array('conf' => $queryParameters['conf'], 'url' => $file->url, 'name' => $file->name, 'nom' => strtolower(preg_replace("/[A-Z]+/", "_$0", $queryParameters['nom'])), 'size' => $file->size, 'type' => $file->type);
                 }
 
-
                 if (!$fileManager->getImagePath()) {
                     $file->url = $this->generateUrl('media_file', array_merge($fileManager->getQueryParameters(), ['fileName' => $file->url]));
                 }
 
             }
 
-        }
-        $this->dispatch(FileManagerEvents::POST_UPDATE, ['response' => &$response]);
+            $this->dispatch(FileManagerEvents::POST_UPDATE, ['response' => &$response]);
+            $responseHttp = new JsonResponse($retour);
 
-        return new JsonResponse($retour);
+        }else{
+            $responseHttp = new JsonResponse();
+            $responseHttp->setStatusCode(JsonResponse::HTTP_NO_CONTENT);
+        }
+
+
+        return $responseHttp;
     }
 
     /**

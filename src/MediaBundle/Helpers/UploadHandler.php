@@ -56,7 +56,7 @@ class UploadHandler
             // DELETE requests. This is a parameter sent to the client:
             'delete_type' => 'DELETE',
             'access_control_allow_origin' => '*',
-            'access_control_allow_credentials' => false,
+            'access_control_allow_credentials' => true,
             'access_control_allow_methods' => [
                 'OPTIONS',
                 'HEAD',
@@ -70,6 +70,8 @@ class UploadHandler
                 'Content-Type',
                 'Content-Range',
                 'Content-Disposition',
+                'Content-Description',
+                'Access-Control-Allow-Origin'
             ],
             // By default, allow redirects to the referer protocol+host:
             'redirect_allow_target' => '/^'.preg_quote(
@@ -186,6 +188,7 @@ class UploadHandler
             case 'PATCH':
             case 'PUT':
             case 'POST':
+                $this->head();
                 $this->post($this->options['print_response']);
                 break;
             case 'DELETE':
