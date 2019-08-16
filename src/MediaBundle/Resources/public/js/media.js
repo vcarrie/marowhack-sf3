@@ -102,7 +102,13 @@ function initFileUpload(selector) {
                     }).done(function (data) {
                         displaySuccess("Votre fichier " + successMessage);
                         var $input = $(e.target).closest('.definima-media').find('input.definima-media-path');
-                        $input.val(file.url);
+                        var $conf = $(e.target).closest('.definima-media').find('input.definima-media-conf');
+                        var $name = $(e.target).closest('.definima-media').find('input.definima-media-name');
+
+                        $input.val(file.name);
+                        $conf.val(file.conf);
+                        $name.val(file.nom);
+
                         $input.change();
                         if ($(e.target).closest('.fileupload').prop('required'))
                             $(e.target).closest('.fileupload').prop('required', false);

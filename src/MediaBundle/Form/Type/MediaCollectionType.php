@@ -51,9 +51,6 @@ class MediaCollectionType extends CollectionType
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
         parent::buildView($view, $form, $options);
-        dump($view);
-        dump($form);
-        dump($options);
         $view->vars = array_replace($view->vars, [
             'data_max' => $options['max'],
             'data_min' => $options['min'],

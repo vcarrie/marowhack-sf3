@@ -79,9 +79,10 @@
                             {% if form.vars.allow_alt %}
                                 {{ form_label(form.alt, null, {label_attr: {class: 'control-label'}}) }}
                                 {{ form_widget(form.alt, {attr: {class: 'definima-media-alt'}}) }}
-
                             {% endif %}
                             {{ form_widget(form.path, {attr: {class: 'definima-media-path', 'data-conf': conf, 'data-nom': form.vars.name}}) }}
+                            {{ form_widget(form.conf, {attr: {class: 'definima-media-conf'}}) }}
+                            {{ form_widget(form.name, {attr: {class: 'definima-media-name'}}) }}
                         </div>
                     </div>
                     <div class="{% if not form.vars.allow_alt %}col-sm-12{% else %}{% if collection %}col-sm-4{% else %}col-sm-6{% endif %}{% endif %}">

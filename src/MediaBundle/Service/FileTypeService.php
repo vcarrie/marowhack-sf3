@@ -6,6 +6,7 @@ use MediaBundle\Helpers\FileManager;
 use SplFileInfo;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\Asset\Packages;
+use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Security\Core\Security;
 
 class FileTypeService
@@ -25,24 +26,32 @@ class FileTypeService
      */
     private $security;
 
+    private $configuration;
+
     /**
      * FileTypeService constructor.
      *
      * @param Router   $router
      * @param Packages $packages
      */
-    public function __construct(Router $router, Security $security)
+    public function __construct(Router $router, Security $security, $configuration)
     {
         $this->security = $security;
         $this->router = $router;
+        $this->configuration = $configuration;
     }
 
     public function preview(FileManager $fileManager, SplFileInfo $file)
     {
+        $domain = '';
+        if ($this->configuration['use_external_domain']) {
+            $domain = $this->configuration['domain'];
+        }
+
         if ($fileManager->getImagePath()) {
             $filePath = htmlentities($fileManager->getImagePath().rawurlencode($file->getFilename()));
         } else {
-            $filePath = $this->router->generate('media_file', array_merge($fileManager->getQueryParameters(), ['fileName' => rawurlencode($file->getFilename())]));
+            $filePath = $domain.$this->router->generate('media_file', array_merge($fileManager->getQueryParameters(), ['fileName' => rawurlencode($file->getFilename())]));
         }
         $extension = $file->getExtension();
         $type = $file->getType();
@@ -52,7 +61,7 @@ class FileTypeService
 
             return $fileIcon;
         } elseif ($type === 'dir') {
-            $href = $this->router->generate('media', array_merge($fileManager->getQueryParameters(), ['route' => $fileManager->getRoute().DIRECTORY_SEPARATOR.rawurlencode($file->getFilename())]));
+            $href = $domain.$this->router->generate('media', array_merge($fileManager->getQueryParameters(), ['route' => $fileManager->getRoute().DIRECTORY_SEPARATOR.rawurlencode($file->getFilename())]));
 
             return [
                 'path' => $filePath,
@@ -87,16 +96,17 @@ class FileTypeService
             $extension = pathinfo($filePathTmp, PATHINFO_EXTENSION);
         }
 
+        $domain = '';
         $route = 'media_download';
-//        if ($this->security->isGranted('ROLE_CLIENT')) {
-//            $route = 'admin_media_download';
-//        }
+        if (isset($this->configuration['domain'])) {
+            $domain = $this->configuration['domain'];
+        }
 
         $link = '&nbsp;Aucun fichier...';
         if($filePath) {
             $link = '
             <div class="download-file">
-            <a href="'.$this->router->generate($route, array('path' => $conf.'__'.basename($filePath))).'__'.strtolower(preg_replace("/[A-Z]+/", "_$0", $nom)).'" >
+            <a href="'.$domain.$this->router->generate($route, array('path' => $conf.'__'.basename($filePath))).'__'.strtolower(preg_replace("/[A-Z]+/", "_$0", $nom)).'" >
             <i class="fas fa-download"></i>
             </a></div>';
         }
@@ -106,7 +116,7 @@ class FileTypeService
             case preg_match('/(gif|png|jpe?g|svg)$/i', $extension):
             return [
                 'path' => $filePath,
-                'html' => "<div class='preview-capsule'><img src=\"".$this->router->generate($route, array('path' => $conf.'__'.basename($filePath))).'__'.strtolower(preg_replace("/[A-Z]+/", "_$0", $nom))."\" class='img-responsive'></div>".$link,
+                'html' => "<div class='preview-capsule'><img src=\"".$domain.$this->router->generate($route, array('path' => $conf.'__'.basename($filePath))).'__'.strtolower(preg_replace("/[A-Z]+/", "_$0", $nom))."\" class='img-responsive'></div>".$link,
             ];
             case preg_match('/(mp4|ogg|webm)$/i', $extension):
                 $fa = 'fa-file-video';

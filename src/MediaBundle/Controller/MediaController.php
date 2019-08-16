@@ -25,6 +25,7 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 /**
@@ -56,7 +57,6 @@ class MediaController extends Controller
             'print_response' => false,
         ];
         
-        
         if (isset($fileManager->getConfiguration()['upload'])) {
             $options = $options + $fileManager->getConfiguration()['upload'];
         }
@@ -69,21 +69,23 @@ class MediaController extends Controller
         $response = $uploadHandler->response;
         $retour = array();
 
-        foreach ($response['files'] as &$file) {
-            if (isset($file->error)) {
-                $file->error = $this->get('translator')->trans($file->error);
-                $retour['files'][] = array('name' => $file->name, 'nom' => strtolower(preg_replace("/[A-Z]+/", "_$0", $queryParameters['nom'])), 'size' => $file->size, 'type' => $file->type, "error" => $file->error);
-            }else{
-                $retour['files'][] = array('conf' => $queryParameters['conf'], 'url' => $file->url, 'name' => $file->name, 'nom' => strtolower(preg_replace("/[A-Z]+/", "_$0", $queryParameters['nom'])), 'size' => $file->size, 'type' => $file->type);
-            }
+        if(isset($response['files'])){
+            foreach ($response['files'] as &$file) {
+                if (isset($file->error)) {
+                    $file->error = $this->get('translator')->trans($file->error);
+                    $retour['files'][] = array('name' => $file->name, 'nom' => strtolower(preg_replace("/[A-Z]+/", "_$0", $queryParameters['nom'])), 'size' => $file->size, 'type' => $file->type, "error" => $file->error);
+                }else{
+                    $retour['files'][] = array('conf' => $queryParameters['conf'], 'url' => $file->url, 'name' => $file->name, 'nom' => strtolower(preg_replace("/[A-Z]+/", "_$0", $queryParameters['nom'])), 'size' => $file->size, 'type' => $file->type);
+                }
 
 
-            if (!$fileManager->getImagePath()) {
-                $file->url = $this->generateUrl('media_file', array_merge($fileManager->getQueryParameters(), ['fileName' => $file->url]));
+                if (!$fileManager->getImagePath()) {
+                    $file->url = $this->generateUrl('media_file', array_merge($fileManager->getQueryParameters(), ['fileName' => $file->url]));
+                }
+
             }
 
         }
-
         $this->dispatch(FileManagerEvents::POST_UPDATE, ['response' => &$response]);
 
         return new JsonResponse($retour);
@@ -96,13 +98,24 @@ class MediaController extends Controller
      * @return BinaryFileResponse
      * @throws \Exception
      */
-    public function binaryFileResponseAction(Request $request, $path)
+    public function binaryFileResponseAction(Request $request, $path, $version)
     {
         $pathParams = explode('__', $path);
-        $url = $this->getBasePath(array('conf' => $pathParams[0]))['dir'] . DIRECTORY_SEPARATOR . $pathParams[1];
+
+        $basePath = $this->getBasePath(array('conf' => $pathParams[0]))['dir'];
+        $file = $pathParams[1];
+
+        $url = $basePath;
+
+        if($version){
+            $url .= DIRECTORY_SEPARATOR . $version;
+        }
+
+        $url .= DIRECTORY_SEPARATOR . $file;
+
         $path_parts = pathinfo($url);
-        
-        return $this->file($url, $pathParams[2].'.'.$path_parts['extension']);        
+
+        return $this->file($url, $pathParams[2].'.'.$path_parts['extension'], ResponseHeaderBag::DISPOSITION_INLINE);
     }
 
     /**

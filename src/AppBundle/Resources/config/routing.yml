@@ -2,7 +2,6 @@ app_index:
     path:     /
     defaults: { _controller: AppBundle:Default:index }
 
-app_ville_ajax:
-    path:     /villeajax
-    defaults: { _controller: AppBundle:Default:villeAjax }
-    methods:  [GET, POST]
+app_change:
+    path:     /change
+    defaults: { _controller: AppBundle:Default:change }
