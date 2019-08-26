@@ -8,7 +8,10 @@
         <meta name="robots" content="index, follow">
         <meta name="description" content="">
 
-        <title>{% block title %}{% endblock %}</title>
+        {{ sonata_seo_title() }}
+        {{ sonata_seo_metadatas() }}
+        {{ sonata_seo_link_canonical() }}
+        {{ sonata_seo_lang_alternates() }}
 
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />

@@ -14,6 +14,8 @@ parameters:
     mailer_host: 127.0.0.1
     mailer_user: ~
     mailer_password: ~
+    mailer_from: valentin@definima.com
+    mailer_from_name: definima
 
     # A secret key that's used to generate certain security-related tokens
     secret: 33fafdd5a967e1360e8becf3eebe933b

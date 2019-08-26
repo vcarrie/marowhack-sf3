@@ -4,10 +4,22 @@
 
 //COLORS
 $colorProject: #bc277a;
+$colorProjectDark: darken($colorProject, 10);
+$colorProjectLight: lighten($colorProject, 10);
+
 $grey: #dee2e6;
+
 $green: green;
+$greenDark: darken($green, 10);
+$greenLight: lighten($green, 10);
+
 $danger: red;
+$dangerDark: darken($danger, 10);
+$dangerLight: lighten($danger, 10);
+
 $yellow: yellow;
+$yellowDark: darken($yellow, 10);
+$yellowLight: lighten($yellow, 10);
 
 
 //USE OF COLORS

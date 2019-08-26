@@ -35,7 +35,7 @@ class FirstUserCommand extends ContainerAwareCommand {
             $prenom = ($input->getArgument('prenom'))? $input->getArgument('prenom'): 'Admin';
 
             $password = "definima233";
-            $roles = array('ROLE_ADMIN');
+            $roles = array('ROLE_SUPER_ADMIN');
 
             $discriminator = $this->getContainer()->get('pugx_user.manager.user_discriminator');
             $discriminator->setClass('AdminBundle\Entity\Admin');

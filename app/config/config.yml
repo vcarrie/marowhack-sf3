@@ -139,8 +139,8 @@ fos_user:
     firewall_name: main
     user_class: AppBundle\Entity\User
     from_email:
-        address: "%mailer_user%"
-        sender_name: "%mailer_user%"
+        address: "%mailer_from%"
+        sender_name: "%mailer_from_name%"
     service:
         user_manager: pugx_user_manager
         mailer: fos_user.mailer.twig_swift

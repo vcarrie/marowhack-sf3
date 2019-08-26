@@ -33,20 +33,31 @@
     background: $colorProject !important;
 }
 
-
 /* Alert messages */
 
 .alert-success{
     background-color: $green !important;
     border-color: $green;
+    &:hover{
+        background-color: $greenDark !important;
+        border-color: $greenDark;
+    }
 }
 .alert-danger{
     background-color: $danger !important;
     border-color: $danger;
+    &:hover{
+        background-color: $dangerDark !important;
+        border-color: $dangerDark;
+    }
 }
 .alert-warning{
     background-color: $yellow !important;
     border-color: $yellow;
+    &:hover{
+        background-color: $yellowDark !important;
+        border-color: $yellowDark;
+    }
 }
 
 
@@ -54,24 +65,38 @@
     background-color: $danger;
     border-color: $danger;
     &:hover{
-        background-color: #ab5656;
-        border-color: #ab5656;
+        background-color: $dangerDark;
+        border-color: $dangerDark;
     }
 }
 
 .btn-warning{
     background-color: $yellow;
     border-color: $yellow;
+    &:hover{
+        background-color: $yellowDark;
+        border-color: $yellowDark;
+    }
 }
 
 .btn-primary{
     background-color: $colorProject;
     border-color: $colorProject;
     &:hover{
-        background-color: #3c91c2;
-        border-color: #3c91c2;
+        background-color: $colorProjectDark;
+        border-color: $colorProjectDark;
     }
 }
+
+.btn-success{
+    background-color: $green;
+    border-color: $green;
+    &:hover{
+        background-color: $greenDark;
+        border-color: $greenDark;
+    }
+}
+
 
 .logo-go-to-site{
     max-width: 15px !important;
