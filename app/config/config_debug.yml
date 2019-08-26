@@ -1,12 +1,13 @@
 imports:
     - { resource: config_dev.yml }
+    - { resource: parameters_debug.yml }
 
 parameters:
-    database_host: 127.0.0.1
-    database_port: null
-    database_name: media_receiver
-    database_user: valentin
-    database_password: definima233
+    database_host: '%database_host_debug%'
+    database_port: '%database_port_debug%'
+    database_name: '%database_name_debug%'
+    database_user: '%database_user_debug%'
+    database_password: '%database_password_debug%'
 
 media:
     use_external_domain: true
